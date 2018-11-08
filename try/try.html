@@ -9,6 +9,7 @@
             $("#File").change(function (file) {
                 $("body").append(file.target.files[0]);
                 var url = window.URL.createObjectURL(file.target.files[0]);
+                console.log(url);
                 $("#player")[0].src = url;
                 $("#player")[0].onload = function () {
                     window.URL.revokeObjectURL(src);
