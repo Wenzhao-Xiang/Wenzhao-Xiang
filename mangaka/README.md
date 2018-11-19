@@ -1,2 +1,2 @@
-# Wenzhao-Xiang.github.io
-Welcome to my world!  ^_^
+# Mangaka
+这是一款用于线稿上色、线稿生成、线稿简化的web应用，专注于为初入门的漫画师提供绘画方面的帮助，同时也能为所有漫画师提供创作的灵感！
