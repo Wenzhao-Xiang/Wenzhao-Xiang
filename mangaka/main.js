@@ -7,6 +7,7 @@ function main() {
   const color = document.getElementById('color');
   const sketch = document.getElementById('sketch');
   const simplificaiton = document.getElementById('simplificaiton');
+  const target = document.getElementById('target');
   const inputHeight = 256;
   const inputWidth = 256;
   let model;
@@ -36,6 +37,7 @@ function main() {
   color.addEventListener('click', (e) => {
     clearCanvas();
     init('colorModel');
+    target.innerHTML = '线稿上色图片';
     sketch.removeAttribute('class', 'active');
     simplificaiton.removeAttribute('class', 'active');
     color.setAttribute('class', 'active');
@@ -44,6 +46,7 @@ function main() {
   sketch.addEventListener('click', (e) => {
     clearCanvas();
     init('colorModel');
+    target.innerHTML = '线稿生成图片';
     color.removeAttribute('class', 'active');
     simplificaiton.removeAttribute('class', 'active');
     sketch.setAttribute('class', 'active');
@@ -52,6 +55,7 @@ function main() {
   simplificaiton.addEventListener('click', (e) => {
     clearCanvas();
     init('colorModel');
+    target.innerHTML = '线稿简化图片';
     color.removeAttribute('class','active');
     sketch.removeAttribute('class', 'active');
     simplificaiton.setAttribute('class', 'active');
