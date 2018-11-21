@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="examples/third_party/bootstrap.min.css">
+    <title>WebML Examples</title>
+    <style>
+      .row {
+        margin: 20px;
+      }
+      .col {
+        text-align: center;
+      }
+      .btn-lg {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="row title">
+        <div class="col">
+          <h1>WebML Examples</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/image_classification_tflite/index.html">Classification Image Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/image_classification_tflite/camera.html">Classification Camera Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/ssd_mobilenet/index.html">SSD MobileNet Image Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/ssd_mobilenet/camera.html">SSD MobileNet Camera Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/posenet/index.html">PoseNet Image Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="examples/posenet/camera.html">PoseNet Camera Demo</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a href="https://github.com/intel/webml-polyfill/tree/master/examples">Source code</a>
+        </div>
+      </div>
+    </div>
+    <script src="examples/third_party/jquery-3.2.1.slim.min.js"></script>
+    <script src="examples/third_party/popper.min.js"></script>
+    <script src="examples/third_party/bootstrap.min.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/webml-examples/sw.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
