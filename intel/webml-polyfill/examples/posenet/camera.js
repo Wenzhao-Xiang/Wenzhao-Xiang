@@ -188,8 +188,8 @@ function removeAlertElement() {
   }
 }
 
-function changePrefer(newPrefer) {
-  if (currentPrefer === newPrefer) {
+function changePrefer(newPrefer, changeFail) {
+  if (currentPrefer === newPrefer && !changeFail) {
     return;
   }
   streaming = false;
@@ -209,7 +209,7 @@ function changePrefer(newPrefer) {
       console.warn(`Failed to change backend ${tmpNewPrefer}, switch back to ${tmpCurrentPrefer}`);
       console.error(e);
       showAlert(tmpNewPrefer);
-      changePrefer(currentPrefer);
+      changePrefer(currentPrefer, true);
       updatePrefer();
       updateBackend();
     });

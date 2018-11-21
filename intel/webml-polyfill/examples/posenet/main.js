@@ -102,8 +102,8 @@ function changeBackend(newBackend) {
   }, 10);
 }
 
-function changePrefer(newPrefer) {
-  if (currentPrefer === newPrefer) {
+function changePrefer(newPrefer, changeFail) {
+  if (currentPrefer === newPrefer && !changeFail) {
     selectPrefer.dataset.prefer = newPrefer;
     return;
   }
@@ -122,7 +122,7 @@ function changePrefer(newPrefer) {
       console.warn(`Failed to change backend ${tmpNewPrefer}, switch back to ${tmpCurrentPrefer}`);
       console.error(e);
       showAlert(tmpNewPrefer);
-      changePrefer(currentPrefer);
+      changePrefer(currentPrefer, true);
       updatePrefer();
       updateBackend();
     });
