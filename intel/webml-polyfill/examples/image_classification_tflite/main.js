@@ -199,8 +199,8 @@ function main(camera) {
     selectModel.innerHTML = currentModel;
   }
 
-  function changePrefer(newPrefer) {
-    if (currentPrefer === newPrefer) {
+  function changePrefer(newPrefer, changeFail) {
+    if (currentPrefer === newPrefer && !changeFail) {
       selectPrefer.dataset.prefer = currentPrefer;
       return;
     }
@@ -226,7 +226,7 @@ function main(camera) {
         console.warn(`Failed to change backend ${tmpNewPrefer}, switch back to ${tmpCurrentPrefer}`);
         console.error(e);
         showAlert(tmpNewPrefer);
-        changePrefer(currentPrefer);
+        changePrefer(currentPrefer, true);
         updatePrefer();
         updateModel();
         updateBackend();
