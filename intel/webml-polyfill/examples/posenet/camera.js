@@ -201,7 +201,7 @@ function changePrefer(newPrefer, changeFail) {
       currentPrefer = newPrefer;
       updatePrefer();
       updateBackend();
-      initModel();
+      streaming = true;
       poseDetectionFrame();
     }).catch((e) => {
       let tmpNewPrefer = newPrefer === "sustained"? "MPS" : "BNNS";
