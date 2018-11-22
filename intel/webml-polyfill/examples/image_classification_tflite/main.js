@@ -181,6 +181,7 @@ function main(camera) {
     utils.changeModelParam(newModel);
     progressContainer.style.display = "inline";
     selectModel.innerHTML = 'Setting...';
+    currentPrefer = "sustained";
     currentModel = newModel.MODEL_NAME;
     setTimeout(() => {
       utils.init(currentBackend, currentPrefer).then(() => {
