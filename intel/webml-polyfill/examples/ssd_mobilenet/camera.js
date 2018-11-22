@@ -185,7 +185,7 @@ function main() {
   
     navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: "environment"}}).then((stream) => {
       video.srcObject = stream;
-      utils.init(currentBackend).then(() => {
+      utils.init(currentBackend, currentPrefer).then(() => {
         updateBackend();
         updatePrefer();
         streaming = true;
