@@ -44,7 +44,7 @@ function decodeYOLOv2(output, img_width, img_height) {
     netout[size * i + 4] = _sigmoid(netout[size * i + 4]);
   }
 
-  // just one class, don need softmax
+  // just one class, dont need softmax
   // let classes = [];
   // for (let i = 0; i < grid_h * grid_w * nb_box; ++i) {
   //   classes[i] = [netout[size * i + 5]];
@@ -190,18 +190,34 @@ function drawOutput(image, canvas, results, img_width, img_height) {
   ctx.drawImage(image, 0, 0, img_width, img_height);
 	for (let i = 0; i < results.length; ++i) {
 		// display detected face
-		x = Math.floor(results[i][1]);
-		y = Math.floor(results[i][2]);
-		w = Math.floor(results[i][3] / 2);
-		h = Math.floor(results[i][4] / 2);
+		let x = Math.floor(results[i][1]);
+		let y = Math.floor(results[i][2]);
+		let w = Math.floor(results[i][3] / 2);
+    let h = Math.floor(results[i][4] / 2);
+    let prob = results[i][5];
 
 		if (w < h) w = h;
 		else h = w;
 
     [xmin,xmax,ymin,ymax] = crop(x, y, w, h, 1.0, img_width, img_height);
     ctx.strokeStyle = "blue";
+    ctx.fillStyle = "blue";
     ctx.lineWidth = 3;
     ctx.strokeRect(xmin, ymin, xmax-xmin, ymax-ymin);
+    ctx.font = "20px Arial";
+    let text = `${prob.toFixed(2)}`;
+    let width = ctx.measureText(text).width;
+    if (ymin >= parseInt(ctx.font, 10)) {
+      ctx.fillRect(xmin - 2, ymin - parseInt(ctx.font, 10), width + 4, parseInt(ctx.font, 10));
+      ctx.fillStyle = "white";
+      ctx.textAlign = 'start';
+      ctx.fillText(text, xmin, ymin - 3);
+    } else {
+      ctx.fillRect(xmin + 2, ymin , width + 4,  parseInt(ctx.font, 10));
+      ctx.fillStyle = "white";
+      ctx.textAlign = 'start';
+      ctx.fillText(text, xmin + 2, ymin + 15);
+    }
   }
 
   // used for face alignment
