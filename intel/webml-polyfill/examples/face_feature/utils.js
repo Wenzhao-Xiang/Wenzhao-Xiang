@@ -113,16 +113,18 @@ class Utils {
     }
     let context = canvas.getContext('2d');
     let pixels = context.getImageData(0, 0, width, height).data;
-    if (norm) {
-      pixels = new Float32Array(pixels).map(p => p / 255);
-    }
     
     if (channelScheme === 'RGB') {
       // NHWC layout
       for (let y = 0; y < height; ++y) {
         for (let x = 0; x < width; ++x) {
           for (let c = 0; c < channels; ++c) {
-            let value = pixels[y*width*imageChannels + x*imageChannels + c];
+            let value;
+            if (norm) {
+              value = pixels[y*width*imageChannels + x*imageChannels + c] / 255;
+            } else {
+              value = pixels[y*width*imageChannels + x*imageChannels + c];
+            }
             tensor[y*width*channels + x*channels + c] = (value - mean[c]) / std[c];
           }
         }
@@ -132,7 +134,12 @@ class Utils {
       for (let y = 0; y < height; ++y) {
         for (let x = 0; x < width; ++x) {
           for (let c = 0; c < channels; ++c) {
-            let value = pixels[y*width*imageChannels + x*imageChannels + (channels-c-1)];
+            let value;
+            if (norm) {
+              value = pixels[y*width*imageChannels + x*imageChannels + (channels-c-1)] / 255;
+            } else {
+              value = pixels[y*width*imageChannels + x*imageChannels + (channels-c-1)];
+            }
             tensor[y*width*channels + x*channels + c] = (value - mean[c]) / std[c];
           }
         }
