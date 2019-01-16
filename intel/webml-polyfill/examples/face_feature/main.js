@@ -19,13 +19,6 @@ const face_tflite = {
   },
 };
 
-const preferMap = {
-  'MPS': 'sustained',
-  'BNNS': 'fast',
-  'sustained': 'MPS',
-  'fast': 'BNNS',
-};
-
 function main(camera) {
   const availableModels = [
     face_tflite,
