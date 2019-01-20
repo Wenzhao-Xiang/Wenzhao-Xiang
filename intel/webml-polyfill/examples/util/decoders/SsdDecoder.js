@@ -273,6 +273,23 @@ function NMS(options, outputBoxTensor, outputClassScoresTensor) {
 }
 
 /**
+* Crop image
+*
+* @param {object} imageSource - Input image element
+*/
+function cropImage(imageSource, totalDetections, boxesList, margin) {
+  for (let i = 0; i < totalDetections; ++i) {
+    let [ymin, xmin, ymax, xmax] = boxesList[i];
+
+    boxesList[i][0] = Math.max(0, (ymax + ymin)/2 - (ymax - ymin)/2 * margin[2]);
+    boxesList[i][2] = Math.min(imageSource.height, (ymax + ymin)/2 + (ymax - ymin)/2 * margin[3]);
+    boxesList[i][1] = Math.max(0, (xmax + xmin)/2 - (xmax - xmin)/2 * margin[0]);
+    boxesList[i][3] = Math.min(imageSource.width, (xmax + xmin)/2 + (xmax - xmin)/2 * margin[1]);
+  }
+  return boxesList;
+}
+
+/**
 * Draw img and box
 *
 * @param {object} imageSource - Input image element

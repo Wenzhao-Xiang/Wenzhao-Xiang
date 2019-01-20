@@ -1,1 +1,0 @@
-Download the following model packages, then uncompress them if necessary and move the model files here:
