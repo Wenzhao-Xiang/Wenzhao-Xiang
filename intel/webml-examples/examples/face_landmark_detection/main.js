@@ -15,16 +15,17 @@ async function main(camera) {
   const selectPrefer = document.getElementById('selectPrefer');
   const progressContainer = document.getElementById('progressContainer');
   const progressBar = document.getElementById('progressBar');
+  const progressLabel = document.getElementById('progressLabel');
 
   let currentBackend = '';
   let currentModel;
   let currentPrefer = '';
   let streaming = false;
 
-  let utils = new Utils(canvasElement1);
+  let landmarkDetector = new Utils(canvasElement1);
   let faceDetector = new FaceDetecor(canvasElement);
   faceDetector.updateProgress = updateProgress;
-  utils.updateProgress = updateProgress;    //register updateProgress function if progressBar element exist
+  landmarkDetector.updateProgress = updateProgress;    //register updateProgress function if progressBar element exist
 
   function checkPreferParam() {
     if (currentOS === 'Mac OS') {
@@ -89,13 +90,13 @@ async function main(camera) {
     } else {
       selectPrefer.style.display = 'inline';
     }
-    utils.deleteAll();
+    landmarkDetector.deleteAll();
     faceDetector.deleteAll();
     backend.innerHTML = 'Setting...';
     setTimeout(async function() {
       try {
         await faceDetector.init(newBackend, currentPrefer);
-        await utils.init(newBackend, currentPrefer);
+        await landmarkDetector.init(newBackend, currentPrefer);
         currentBackend = newBackend;
         updateBackend();
         updateModel();
@@ -108,9 +109,9 @@ async function main(camera) {
         }
       }
       catch(e) {
-        console.warn(`Failed to init ${utils.model._backend}, try to use WASM`);
+        console.warn(`Failed to init ${landmarkDetector.model._backend}, try to use WASM`);
         console.error(e);
-        showAlert(utils.model._backend, currentModel.modelName);
+        showAlert(landmarkDetector.model._backend, currentModel.modelName);
         changeBackend('WASM');
         updatePrefer();
         backend.innerHTML = 'WASM';
@@ -130,6 +131,7 @@ async function main(camera) {
     faceDetector.deleteAll();
     removeAlertElement();
     faceDetector.changeModelParam(newModel);
+    progressLabel.innerHTML = 'Loading Face Detection Model';
     progressContainer.style.display = "inline";
     selectModel.innerHTML = 'Setting...';
     setTimeout(async function() {
@@ -155,7 +157,7 @@ async function main(camera) {
         console.error(e);
         showAlert(backend, newModel.modelName);
         updateModel();
-        utils.changeModelParam(currentModel);
+        faceDetector.changeModelParam(currentModel);
       };
     }, 10);
   }
@@ -169,13 +171,13 @@ async function main(camera) {
       return;
     }
     streaming = false;
-    utils.deleteAll();
+    landmarkDetector.deleteAll();
     removeAlertElement();
     selectPrefer.innerHTML = 'Setting...';
     setTimeout(async function() {
       try {
         await faceDetector.init(currentBackend, newPrefer);
-        await utils.init(currentBackend, newPrefer);
+        await landmarkDetector.init(currentBackend, newPrefer);
         currentPrefer = newPrefer;
         updatePrefer();
         updateModel();
@@ -274,7 +276,7 @@ async function main(camera) {
     $('.available-models').append(dropdownBtn);
     if (!currentModel) {
       faceDetector.changeModelParam(model);
-      utils.changeModelParam(face_landmark_tflite);
+      landmarkDetector.changeModelParam(face_landmark_tflite);
       currentModel = model;
     }
   }
@@ -333,7 +335,10 @@ async function main(camera) {
     }
 
     try{
-      await utils.init(currentBackend, currentPrefer);
+      progressLabel.innerHTML = 'Loading Face Detection Model';
+      await landmarkDetector.init(currentBackend, currentPrefer);
+      progressLabel.innerHTML = 'Loading Face Alignment Model';
+      progressContainer.style.display = "inline";
       await faceDetector.init(currentBackend, currentPrefer);
       updateBackend();
       updateModel();
@@ -344,9 +349,9 @@ async function main(camera) {
       input.removeAttribute('disabled');
     } 
     catch(e) {
-      console.warn(`Failed to init ${utils.model._backend}, try to use WASM`);
+      console.warn(`Failed to init ${landmarkDetector.model._backend}, try to use WASM`);
       console.error(e);
-      showAlert(utils.model._backend, currentModel.modelName);
+      showAlert(landmarkDetector.model._backend, currentModel.modelName);
       changeBackend('WASM');
     };
   } else {
@@ -358,7 +363,10 @@ async function main(camera) {
     navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: "environment"}}).then(async function (stream) {
       video.srcObject = stream;
       try {
-        await utils.init(currentBackend, currentPrefer);
+        progressLabel.innerHTML = 'Loading Face Detection Model';
+        await landmarkDetector.init(currentBackend, currentPrefer);
+        progressLabel.innerHTML = 'Loading Face Detection Model';
+        progressContainer.style.display = "inline";
         await faceDetector.init(currentBackend, currentPrefer);
         updateBackend();
         updateModel();
@@ -368,9 +376,9 @@ async function main(camera) {
         startPredict();
       }
       catch(e) {
-        console.warn(`Failed to init ${utils.model._backend}, try to use WASM`);
+        console.warn(`Failed to init ${landmarkDetector.model._backend}, try to use WASM`);
         console.error(e);
-        showAlert(utils.model._backend, currentModel.modelName);
+        showAlert(landmarkDetector.model._backend, currentModel.modelName);
         changeBackend('WASM');
       };
     }).catch((error) => {
@@ -395,7 +403,7 @@ async function main(camera) {
     let time = parseFloat(detectResult.time);
     drawFaceBoxes(imageSource, canvasShowElement, faceBoxes);
     for (let i = 0; i < faceBoxes.length; ++i) {
-      let landmarkResult = await utils.predict(imageSource, faceBoxes[i]);
+      let landmarkResult = await landmarkDetector.predict(imageSource, faceBoxes[i]);
       time += parseFloat(landmarkResult.time);
       drawKeyPoints(imageSource, canvasShowElement, landmarkResult.keyPoints, faceBoxes[i]);
     }
