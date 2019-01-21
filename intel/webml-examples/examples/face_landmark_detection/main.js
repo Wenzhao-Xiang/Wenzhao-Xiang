@@ -131,7 +131,7 @@ async function main(camera) {
     faceDetector.deleteAll();
     removeAlertElement();
     faceDetector.changeModelParam(newModel);
-    progressLabel.innerHTML = 'Loading Face Detection Model';
+    progressLabel.innerHTML = 'Loading Face Detection Model:';
     progressContainer.style.display = "inline";
     selectModel.innerHTML = 'Setting...';
     setTimeout(async function() {
@@ -335,9 +335,9 @@ async function main(camera) {
     }
 
     try{
-      progressLabel.innerHTML = 'Loading Face Detection Model';
+      progressLabel.innerHTML = 'Loading Face Detection Model:';
       await landmarkDetector.init(currentBackend, currentPrefer);
-      progressLabel.innerHTML = 'Loading Face Alignment Model';
+      progressLabel.innerHTML = 'Loading Face Alignment Model:';
       progressContainer.style.display = "inline";
       await faceDetector.init(currentBackend, currentPrefer);
       updateBackend();
@@ -363,9 +363,9 @@ async function main(camera) {
     navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: "environment"}}).then(async function (stream) {
       video.srcObject = stream;
       try {
-        progressLabel.innerHTML = 'Loading Face Detection Model';
+        progressLabel.innerHTML = 'Loading Face Detection Model:';
         await landmarkDetector.init(currentBackend, currentPrefer);
-        progressLabel.innerHTML = 'Loading Face Detection Model';
+        progressLabel.innerHTML = 'Loading Face Detection Model:';
         progressContainer.style.display = "inline";
         await faceDetector.init(currentBackend, currentPrefer);
         updateBackend();
