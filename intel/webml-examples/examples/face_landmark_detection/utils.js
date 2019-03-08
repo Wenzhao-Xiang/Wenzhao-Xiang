@@ -1,7 +1,6 @@
 class Utils {
   constructor(canvas) {
     this.rawModel;
-    this.labels;
     this.model;
     this.inputTensor = [];
     this.outputTensor = [];
@@ -12,32 +11,62 @@ class Utils {
     this.canvasElement = canvas;
     this.canvasContext = this.canvasElement.getContext('2d');
     this.updateProgress;
-
+    this.loaded = false;
     this.initialized = false;
   }
 
-  async init(backend, prefer) {
-    this.initialized = false;
-    let result;
-    if (!this.rawModel) {
-      result = await this.loadModel(this.modelFile);
-      let flatBuffer = new flatbuffers.ByteBuffer(result.bytes);
-      this.rawModel = tflite.Model.getRootAsModel(flatBuffer);
-      printTfLiteModel(this.rawModel);
+  async loadModel(newModel) {
+    if (this.loaded && this.modelFile === newModel.modelFile) {
+      return 'LOADED';
     }
+    // reset all states
+    this.loaded = this.initialized = false;
+    this.backend = this.prefer = '';
+
+    // set new model params
+    this.inputSize = newModel.inputSize;
+    this.outputSize = newModel.outputSize;
+    this.modelFile = newModel.modelFile;
+    this.preOptions = newModel.preOptions || {};
+    this.postOptions = newModel.postOptions || {};
+    this.numClasses = newModel.numClasses;
+    this.inputTensor = [new Float32Array(newModel.inputSize.reduce((x,y) => x*y))];
+    this.outputTensor = [new Float32Array(newModel.outputSize)];
+
+    let result = await this.loadRawModel(this.modelFile);
+    let flatBuffer = new flatbuffers.ByteBuffer(result.bytes);
+    this.tfModel = tflite.Model.getRootAsModel(flatBuffer);
+    printTfLiteModel(this.tfModel);
+
+    this.loaded = true;
+    return 'SUCCESS';
+  }
+
+
+  async init(backend, prefer) {
+    if (!this.loaded) {
+      return 'NOT_LOADED';
+    }
+    if (this.initialized && backend === this.backend && prefer === this.prefer) {
+      return 'INITIALIZED';
+    }
+    this.initialized = false;
+    this.backend = backend;
+    this.prefer = prefer;
     let kwargs = {
-      rawModel: this.rawModel,
+      rawModel: this.tfModel,
       backend: backend,
       prefer: prefer,
     };
     this.model = new TFliteModelImporter(kwargs);
-    result = await this.model.createCompiledModel();
+    let result = await this.model.createCompiledModel();
     console.log(`compilation result: ${result}`);
     let start = performance.now();
     result = await this.model.compute(this.inputTensor, this.outputTensor);
     let elapsed = performance.now() - start;
     console.log(`warmup time: ${elapsed.toFixed(2)} ms`);
     this.initialized = true;
+    return 'SUCCESS';
   }
 
   async predict(imageSource, box) {
@@ -46,9 +75,7 @@ class Utils {
                                  box[1]-box[0], box[3]-box[2], 0, 0, 
                                  this.canvasElement.width,
                                  this.canvasElement.height);
-    // console.log('inputTensor1', this.inputTensor)
     this.prepareInputTensor(this.inputTensor, this.canvasElement);
-    // console.log('inputTensor2', this.inputTensor)
     let start = performance.now();
     let result = await this.model.compute(this.inputTensor, this.outputTensor);
     let elapsed = performance.now() - start;
@@ -57,7 +84,7 @@ class Utils {
     return {keyPoints: outputTensor, time: elapsed.toFixed(2)};
   }
 
-  async loadModel(modelUrl) {
+  async loadRawModel(modelUrl) {
     let arrayBuffer = await this.loadUrl(modelUrl, true, true);
     let bytes = new Uint8Array(arrayBuffer);
     return {bytes: bytes};
@@ -123,44 +150,9 @@ class Utils {
     }
   }
 
-  prepareSsdOutputTensor(outputBoxTensor, outputClassScoresTensor) {
-    let outputTensor = [];
-    const outH = [1083, 600, 150, 54, 24, 6];
-    const boxLen = 4;
-    const classLen = 2;
-    let boxOffset = 0;
-    let classOffset = 0;
-    let boxTensor;
-    let classTensor;
-    for (let i = 0; i < 6; ++i) {
-      boxTensor = outputBoxTensor.subarray(boxOffset, boxOffset + boxLen * outH[i]);
-      classTensor = outputClassScoresTensor.subarray(classOffset, classOffset + classLen * outH[i]);
-      outputTensor[2 * i] = boxTensor;
-      outputTensor[2 * i + 1] = classTensor;
-      boxOffset += boxLen * outH[i];
-      classOffset += classLen * outH[i];
-    }
-    return outputTensor;
-  }
-
   deleteAll() {
     if (this.model._backend != 'WebML') {
       this.model._compilation._preparedModel._deleteAll();
     }
-  }
-
-  changeModelParam(newModel) {
-    this.inputSize = newModel.inputSize;
-    this.outputSize = newModel.outputSize;
-    this.modelFile = newModel.modelFile;
-    this.labelsFile = newModel.labelsFile;
-    this.preOptions = newModel.preOptions || {};
-    this.postOptions = newModel.postOptions || {};
-    this.inputTensor = [new Float32Array(this.inputSize.reduce((a, b) => a * b))];
-    this.outputTensor = [new Float32Array(this.outputSize)];
-    this.rawModel = null;
-
-    this.canvasElement.width = newModel.inputSize[1];
-    this.canvasElement.height = newModel.inputSize[0];
   }
 }

@@ -1,3 +1,4 @@
+// used for face detection
 function drawFaceBoxes(image, canvas, face_boxes) {
     canvas.width = image.width / image.height * canvas.height;
     // drawImage
@@ -32,22 +33,22 @@ function drawFaceBoxes(image, canvas, face_boxes) {
     });
   }
   
-  // used for face alignment
-  function drawKeyPoints(image, canvas, Keypoints, box) {
-    ctx = canvas.getContext('2d');
-    // boxes.forEach((box, n) => {
-      // keypoints = Keypoints[n];
-      for (let i = 0; i < 128; i = i + 2) {
-        // decode keypoints
-        let x = ((box[1] - box[0]) * Keypoints[i] + box[0]) / image.height * canvas.height;
-        let y = ((box[3] - box[2]) * Keypoints[i + 1] + box[2]) / image.height * canvas.height;
-        // draw keypoints
-        ctx.beginPath();
-        ctx.fillStyle = "blue";
-        ctx.strokeStyle = "blue";
-        ctx.arc(x, y, 2, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.closePath();
-      }
-    // });
-  }
+// used for face landmark detection
+function drawKeyPoints(image, canvas, Keypoints, boxes) {
+  ctx = canvas.getContext('2d');
+  boxes.forEach((box, n) => {
+    keypoints = Keypoints[n];
+    for (let i = 0; i < 128; i = i + 2) {
+      // decode keypoints
+      let x = ((box[1] - box[0]) * keypoints[i] + box[0]) / image.height * canvas.height;
+      let y = ((box[3] - box[2]) * keypoints[i + 1] + box[2]) / image.height * canvas.height;
+      // draw keypoints
+      ctx.beginPath();
+      ctx.fillStyle = "blue";
+      ctx.strokeStyle = "blue";
+      ctx.arc(x, y, 2, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    }
+  });
+}

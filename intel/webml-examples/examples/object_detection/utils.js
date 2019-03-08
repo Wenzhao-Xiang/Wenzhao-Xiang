@@ -16,43 +16,94 @@ class Utils {
     this.numClasses;
     this.numBoxes;
     this.anchors;
+    this.margin;
     this.canvasElement = canvas;
     this.canvasContext = this.canvasElement.getContext('2d');
     this.canvasShowElement = canvasShow;
     this.updateProgress;
-
+    this.loaded = false;
     this.initialized = false;
   }
 
-  async init(backend, prefer) {
-    this.initialized = false;
-    let result;
-    if (!this.rawModel) {
-      result = await this.loadModelAndLabels(this.modelFile, this.labelsFile);
-      this.labels = result.text.split('\n');
-      console.log(`labels: ${this.labels}`);
-      let flatBuffer = new flatbuffers.ByteBuffer(result.bytes);
-      this.rawModel = tflite.Model.getRootAsModel(flatBuffer);
-      printTfLiteModel(this.rawModel);
+  async loadModel(newModel) {
+    if (this.loaded && this.modelFile === newModel.modelFile) {
+      return 'LOADED';
     }
+    // reset all states
+    this.loaded = this.initialized = false;
+    this.backend = this.prefer = '';
+
+    // set new model params
+    this.inputSize = newModel.inputSize;
+    this.outputSize = newModel.outputSize;
+    this.modelFile = newModel.modelFile;
+    this.modelType = newModel.type;
+    this.labelsFile = newModel.labelsFile;
+    this.numClasses = newModel.num_classes;
+    this.margin = newModel.margin;
+    this.preOptions = newModel.preOptions || {};
+    this.postOptions = newModel.postOptions || {};
+    this.inputTensor = [new Float32Array(this.inputSize.reduce((a, b) => a * b))];
+    this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);	    
+    if (this.modelType === 'SSD') {
+      this.outputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
+      this.anchors = generateAnchors({});
+      this.boxSize = newModel.box_size;
+      this.numBoxes = newModel.num_boxes;
+      this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);
+      this.outputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
+      this.outputTensor = this.prepareSsdOutputTensor(this.outputBoxTensor, this.outputClassScoresTensor);
+    } else {
+      this.anchors = newModel.anchors;
+      this.outputTensor = [new Float32Array(this.outputSize)];
+    }
+    this.rawModel = null;
+
+    this.canvasElement.width = newModel.inputSize[1];
+    this.canvasElement.height = newModel.inputSize[0];
+
+    let result = await this.loadModelAndLabels(this.modelFile, this.labelsFile);
+    this.labels = result.text.split('\n');
+    console.log(`labels: ${this.labels}`);
+    let flatBuffer = new flatbuffers.ByteBuffer(result.bytes);
+    this.rawModel = tflite.Model.getRootAsModel(flatBuffer);
+    printTfLiteModel(this.rawModel);
+
+    this.loaded = true;
+    return 'SUCCESS';
+  }
+
+  async init(backend, prefer) {
+    if (!this.loaded) {
+      return 'NOT_LOADED';
+    }
+    if (this.initialized && backend === this.backend && prefer === this.prefer) {
+      return 'INITIALIZED';
+    }
+    this.backend = backend;
+    this.prefer = prefer;
+    this.initialized = false;
     let kwargs = {
       rawModel: this.rawModel,
       backend: backend,
       prefer: prefer,
     };
     this.model = new TFliteModelImporter(kwargs);
-    result = await this.model.createCompiledModel();
+    let result = await this.model.createCompiledModel();
     console.log(`compilation result: ${result}`);
     let start = performance.now();
     result = await this.model.compute(this.inputTensor, this.outputTensor);
     let elapsed = performance.now() - start;
     console.log(`warmup time: ${elapsed.toFixed(2)} ms`);
     this.initialized = true;
+    return 'SUCCESS';
   }
 
   async predict(imageSource) {
-    if (this.modelType === 'SSD') this.predictSSD(imageSource);
-    else this.predictYolo(imageSource);
+    if (this.modelType === 'SSD') 
+      return this.predictSSD(imageSource);
+    else 
+      return this.predictYolo(imageSource);
   }
 
   async predictSSD(imageSource) {
@@ -74,12 +125,14 @@ class Utils {
     // console.log(`Decode time: ${(performance.now() - startDecode).toFixed(2)} ms`);
     // let startNMS = performance.now();
     let [totalDetections, boxesList, scoresList, classesList] = NMS({}, this.outputBoxTensor, this.outputClassScoresTensor);
+    boxesList = cropSSDBox(imageSource, totalDetections, boxesList, this.margin);
     // console.log(`NMS time: ${(performance.now() - startNMS).toFixed(2)} ms`);
     // let startVisual = performance.now();
     visualize(this.canvasShowElement, totalDetections, imageSource, boxesList, scoresList, classesList, this.labels);
     // console.log(`visual time: ${(performance.now() - startVisual).toFixed(2)} ms`);
-    let inferenceTimeElement = document.getElementById('inferenceTime');
-    inferenceTimeElement.innerHTML = `inference time: <em style="color:green;font-weight:bloder;">${elapsed.toFixed(2)} </em>ms`;
+    return {
+      time: elapsed.toFixed(2)
+    };
   }
 
   async predictYolo(imageSource) {
@@ -93,15 +146,15 @@ class Utils {
     let elapsed = performance.now() - start;
     console.log(`Inference time: ${elapsed.toFixed(2)} ms`);
     // let decodeStart = performance.now();
-    let decode_out = decodeYOLOv2({}, this.outputTensor[0], imageSource.width, imageSource.height, this.anchors);
-    let margin = [1.0, 1.0, 1.0, 1.0];
-    let boxes = getBoxes(decode_out, imageSource.width, imageSource.height, margin);
+    let decode_out = decodeYOLOv2({nb_class: this.numClasses}, this.outputTensor[0], this.anchors);
+    let boxes = getBoxes(decode_out, this.margin);
     // console.log(`Decode time: ${(performance.now() - decodeStart).toFixed(2)} ms`);
     // let drawStart = performance.now();
     drawBoxes(imageSource, this.canvasShowElement, boxes, this.labels);
     // console.log(`Draw time: ${(performance.now() - drawStart).toFixed(2)} ms`);
-    let inferenceTimeElement = document.getElementById('inferenceTime');
-    inferenceTimeElement.innerHTML = `inference time: <em style="color:green;font-weight:bloder;">${elapsed.toFixed(2)} </em>ms`;
+    return {
+      time: elapsed.toFixed(2)
+    };
   }
 
   async loadModelAndLabels(modelUrl, labelsUrl) {
@@ -195,32 +248,5 @@ class Utils {
     if (this.model._backend != 'WebML') {
       this.model._compilation._preparedModel._deleteAll();
     }
-  }
-
-  changeModelParam(newModel) {
-    this.inputSize = newModel.inputSize;
-    this.outputSize = newModel.outputSize;
-    this.modelFile = newModel.modelFile;
-    this.modelType = newModel.type;
-    this.labelsFile = newModel.labelsFile;
-    this.preOptions = newModel.preOptions || {};
-    this.postOptions = newModel.postOptions || {};
-    this.inputTensor = [new Float32Array(this.inputSize.reduce((a, b) => a * b))];
-    if (this.modelType === 'SSD') {
-      this.anchors = generateAnchors({});
-      this.boxSize = newModel.box_size;
-      this.numClasses = newModel.num_classes;
-      this.numBoxes = newModel.num_boxes;
-      this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);
-      this.outputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
-      this.outputTensor = this.prepareSsdOutputTensor(this.outputBoxTensor, this.outputClassScoresTensor);
-    } else {
-      this.anchors = newModel.anchors;
-      this.outputTensor = [new Float32Array(this.outputSize)];
-    }
-    this.rawModel = null;
-
-    this.canvasElement.width = newModel.inputSize[1];
-    this.canvasElement.height = newModel.inputSize[0];
   }
 }
