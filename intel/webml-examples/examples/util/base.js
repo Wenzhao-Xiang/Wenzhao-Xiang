@@ -280,7 +280,7 @@ const objectDetectionModels = [{
   modelName: 'SSD MobileNet v2 Quant(TFLite)',
   modelFormatName: 'ssd_mobilenet_v2_quant_tflite',
   isQuantized: true,
-  modelSize: '6.9MB',
+  modelSize: '6.2MB',
   modelFile: '../object_detection/model/ssd_mobilenet_v2_quant.tflite',
   labelsFile: '../object_detection/model/coco_classes.txt',
   type: 'SSD',
