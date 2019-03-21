@@ -45,6 +45,20 @@ const imageClassificationModels = [{
   intro: 'MobileNetV2 improves the state of the art performance of mobile models.',
   paperUrl: 'https://arxiv.org/abs/1801.04381'
 }, {
+  modelName: 'Mobilenet v2 Quant(TFLite)',
+  modelFormatName: 'mobilenet_v2_quant_tflite',
+  isQuantized: true,
+  modelSize: '6.9MB',
+  inputSize: [224, 224, 3],
+  outputSize: 1001,
+  modelFile: '../image_classification/model/mobilenet_v2_1.0_224_quant.tflite',
+  labelsFile: '../image_classification/model/labels1001.txt',
+  postOptions: {
+    softmax: true,
+  },
+  intro: 'Quantized version of Mobilenet v2',
+  paperUrl: 'https://arxiv.org/abs/1801.04381'
+}, {
   modelName: 'Inception v3 (TFLite)',
   modelFormatName: 'inception_v3_tflite',
   modelSize: '95.3MB',
@@ -230,6 +244,21 @@ const objectDetectionModels = [{
   intro: 'SSD (Single Shot MultiBox Detector) is an unified framework for object detection with a single network. Loading SSD MobileNet model (converted from Tensorflow SSD MobileNet model) trained by COCO in TensorFlow Lite format, constructs and inferences it by WebML API.',
   paperUrl: 'https://arxiv.org/abs/1803.08225'
 }, {
+  modelName: 'SSD MobileNet v1 Quant(TFLite)',
+  modelFormatName: 'ssd_mobilenet_v1_quant_tflite',
+  isQuantized: true,
+  modelSize: '6.9MB',
+  modelFile: '../object_detection/model/ssd_mobilenet_v1_quant.tflite',
+  labelsFile: '../object_detection/model/coco_classes.txt',
+  type: 'SSD',
+  box_size: 4,
+  num_classes: 91,
+  num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+  margin: [1, 1, 1, 1],
+  inputSize: [300, 300, 3],
+  intro: 'Quantized version of SSD Mobilenet v1',
+  paperUrl: 'https://arxiv.org/abs/1803.08225'
+}, {
   modelName: 'SSD MobileNet v2 (TFLite)',
   modelFormatName: 'ssd_mobilenet_v2_tflite',
   modelSize: '67.3MB',
@@ -247,6 +276,21 @@ const objectDetectionModels = [{
   },
   intro: 'SSD MobileNet V2 is slower than SSD Mobilenet V1, but has higher accuracy.',
   paperUrl: 'https://arxiv.org/abs/1801.04381'
+}, {
+  modelName: 'SSD MobileNet v2 Quant(TFLite)',
+  modelFormatName: 'ssd_mobilenet_v2_quant_tflite',
+  isQuantized: true,
+  modelSize: '6.9MB',
+  modelFile: '../object_detection/model/ssd_mobilenet_v2_quant.tflite',
+  labelsFile: '../object_detection/model/coco_classes.txt',
+  type: 'SSD',
+  box_size: 4,
+  num_classes: 91,
+  num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+  margin: [1, 1, 1, 1],
+  inputSize: [300, 300, 3],
+  intro: 'Quantized version of SSD Mobilenet v2',
+  paperUrl: 'https://arxiv.org/abs/1803.08225'
 }, {
   modelName: 'SSDLite MobileNet v2 (TFLite)',
   modelFormatName: 'ssdlite_mobilenet_v2_tflite',
@@ -266,7 +310,7 @@ const objectDetectionModels = [{
   intro: 'SSDLite MobileNet V2 is an upgraded version of SSD MobileNet V2. Compared with SSD Mobilenet V2, SSDLite Mobilenet V2 is much faster, and almost has no loss of the accuracy.',
   paperUrl: 'https://arxiv.org/abs/1801.04381'
 }, {
-  modelName: 'Tiny Yolo v2 COCO(TFlite)',
+  modelName: 'Tiny Yolo v2 COCO (TFLite)',
   modelFormatName: 'tiny_yolov2_coco_tflite',
   modelSize: '44.9MB',
   modelFile: '../object_detection/model/tiny_yolov2_coco.tflite',
@@ -283,7 +327,7 @@ const objectDetectionModels = [{
   intro: 'Tiny YOLO is based off of the Darknet reference network and is much faster but less accurate than the normal YOLO model. And this model is trained by COCO dataset.',
   paperUrl: 'https://arxiv.org/abs/1612.08242'
 }, {
-  modelName: 'Tiny Yolo v2 VOC(TFlite)',
+  modelName: 'Tiny Yolo v2 VOC (TFLite)',
   modelFormatName: 'tiny_yolov2_voc_tflite',
   modelSize: '63.4MB',
   modelFile: '../object_detection/model/tiny_yolov2_voc.tflite',
@@ -323,6 +367,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [224, 224, 3],
     outputSize: [224, 224, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'DeepLab is a state-of-art deep learning model for semantic image segmentation, where the goal is to assign semantic labels (e.g., person, dog, cat and so on) to every pixel in the input image.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -333,6 +381,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [224, 224, 3],
     outputSize: [224, 224, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'Equivalent to the model above (without dilated suffix) but only available on platforms that natively support atrous convolution.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -343,6 +395,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [257, 257, 3],
     outputSize: [257, 257, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'DeepLab is a state-of-art deep learning model for semantic image segmentation, where the goal is to assign semantic labels (e.g., person, dog, cat and so on) to every pixel in the input image.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -353,6 +409,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [257, 257, 3],
     outputSize: [257, 257, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'Equivalent to the model above (without dilated suffix) but only available on platforms that natively support atrous convolution.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -363,6 +423,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [321, 321, 3],
     outputSize: [321, 321, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'DeepLab is a state-of-art deep learning model for semantic image segmentation, where the goal is to assign semantic labels (e.g., person, dog, cat and so on) to every pixel in the input image.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -373,6 +437,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [321, 321, 3],
     outputSize: [321, 321, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'Equivalent to the model above (without dilated suffix) but only available on platforms that natively support atrous convolution.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -383,6 +451,10 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [513, 513, 3],
     outputSize: [513, 513, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'DeepLab is a state-of-art deep learning model for semantic image segmentation, where the goal is to assign semantic labels (e.g., person, dog, cat and so on) to every pixel in the input image.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
   }, {
@@ -393,67 +465,71 @@ const semanticSegmentationModels = [{
     labelsFile: '../semantic_segmentation/model/labels.txt',
     inputSize: [513, 513, 3],
     outputSize: [513, 513, 21],
+    preOptions: {
+      mean: [127.5, 127.5, 127.5],
+      std: [127.5, 127.5, 127.5],
+    },
     intro: 'Equivalent to the model above (without dilated suffix) but only available on platforms that natively support atrous convolution.',
     paperUrl: 'https://arxiv.org/abs/1802.02611'
 }];
 
 const faceDetectionModels = [{
-    modelName: 'SSD MobileNetV1(TFlite)',
-    type: 'SSD',
-    modelFile: '../face_landmark_detection/model/ssd_mobilenetv1_face.tflite',
-    box_size: 4,
-    num_classes: 2,
-    num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
-    margin: [1.2,1.2,0.8,1.1],
-    inputSize: [300, 300, 3],
-    preOptions: {
-      mean: [127.5, 127.5, 127.5],
-      std: [127.5, 127.5, 127.5],
-    }
-  }, {
-    modelName: 'SSD MobileNetV2(TFlite)',
-    type: 'SSD',
-    modelFile: '../face_landmark_detection/model/ssd_mobilenetv2_face.tflite',
-    box_size: 4,
-    num_classes: 2,
-    num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
-    margin: [1.2,1.2,0.8,1.1],
-    inputSize: [300, 300, 3],
-    preOptions: {
-      mean: [127.5, 127.5, 127.5],
-      std: [127.5, 127.5, 127.5],
-    }
-  }, {
-    modelName: 'SSDLite MobileNetV2(TFlite)',
-    type: 'SSD',
-    modelFile: '../face_landmark_detection/model/ssdlite_mobilenetv2_face.tflite',
-    box_size: 4,
-    num_classes: 2,
-    num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
-    margin: [1.2,1.2,0.8,1.1],
-    inputSize: [300, 300, 3],
-    preOptions: {
-      mean: [127.5, 127.5, 127.5],
-      std: [127.5, 127.5, 127.5],
-    }
-  }, {
-    modelName: 'Tiny YoloV2(TFlite)',
-    modelFile: '../face_landmark_detection/model/tiny_yolov2_face.tflite',
-    type: 'YOLO',
-    margin: [1.15, 1.15, 0.6, 1.15],
-    inputSize: [416, 416, 3],
-    outputSize: 1 * 13 * 13 * 30,
-    anchors: [0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828],
-    preOptions: {
-      norm: true,
-    },
+  modelName: 'SSD MobileNetV1(TFlite)',
+  type: 'SSD',
+  modelFile: '../face_landmark_detection/model/ssd_mobilenetv1_face.tflite',
+  box_size: 4,
+  num_classes: 2,
+  num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+  margin: [1.2,1.2,0.8,1.1],
+  inputSize: [300, 300, 3],
+  preOptions: {
+    mean: [127.5, 127.5, 127.5],
+    std: [127.5, 127.5, 127.5],
+  }
+}, {
+  modelName: 'SSD MobileNetV2(TFlite)',
+  type: 'SSD',
+  modelFile: '../face_landmark_detection/model/ssd_mobilenetv2_face.tflite',
+  box_size: 4,
+  num_classes: 2,
+  num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+  margin: [1.2,1.2,0.8,1.1],
+  inputSize: [300, 300, 3],
+  preOptions: {
+    mean: [127.5, 127.5, 127.5],
+    std: [127.5, 127.5, 127.5],
+  }
+}, {
+  modelName: 'SSDLite MobileNetV2(TFlite)',
+  type: 'SSD',
+  modelFile: '../face_landmark_detection/model/ssdlite_mobilenetv2_face.tflite',
+  box_size: 4,
+  num_classes: 2,
+  num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+  margin: [1.2,1.2,0.8,1.1],
+  inputSize: [300, 300, 3],
+  preOptions: {
+    mean: [127.5, 127.5, 127.5],
+    std: [127.5, 127.5, 127.5],
+  }
+}, {
+  modelName: 'Tiny YoloV2(TFlite)',
+  modelFile: '../face_landmark_detection/model/tiny_yolov2_face.tflite',
+  type: 'YOLO',
+  margin: [1.15, 1.15, 0.6, 1.15],
+  inputSize: [416, 416, 3],
+  outputSize: 1 * 13 * 13 * 30,
+  anchors: [0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828],
+  preOptions: {
+    norm: true,
+  },
 }];
 
 const faceLandmarkDetectionModels = [{
-  modelName: 'DAN(TFlite)',
-  modelFile: '../face_landmark_detection/model/face_landmark.tflite',
-  inputSize: [128, 128, 3],
-  outputSize: 136,
+modelName: 'DAN(TFlite)',
+modelFile: '../face_landmark_detection/model/face_landmark.tflite',
+inputSize: [128, 128, 3],
+outputSize: 136,
 }];
 
 const getOS = () => {
