@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/nn/webgl/WebGLModel.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">src/nn/webgl/</a> WebGLModel.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.81% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>223/228</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.19% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>81/86</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.47% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>17/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.8% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>222/227</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">334×</span>
+<span class="cline-any cline-yes">1890×</span>
+<span class="cline-any cline-yes">1077×</span>
+<span class="cline-any cline-yes">1075×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">409×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">666×</span>
+<span class="cline-any cline-yes">666×</span>
+<span class="cline-any cline-yes">666×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">813×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">332×</span>
+<span class="cline-any cline-yes">330×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">291×</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-yes">283×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-yes">159×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-yes">50×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">94×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76×</span>
+<span class="cline-any cline-yes">76×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1077×</span>
+<span class="cline-any cline-yes">1074×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">332×</span>
+<span class="cline-any cline-yes">332×</span>
+<span class="cline-any cline-yes">332×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">78×</span>
+<span class="cline-any cline-yes">78×</span>
+<span class="cline-any cline-yes">78×</span>
+<span class="cline-any cline-yes">76×</span>
+<span class="cline-any cline-yes">76×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {OperationCode, OperandCode, PaddingCode, FuseCode} from '../Enums'
+import * as utils from '../utils'
+import * as tf from '@tensorflow/tfjs-core';
+&nbsp;
+export default class WebGLModel {
+  /**
+   * Create WebGLModel class in nn/Model.js
+   *
+   * @param {Object} model - Model from nn/Model.js
+   */
+  constructor(model) {
+    this._model = model;
+    this._operations = model._operations;
+    this._operands = [];
+    this._prepared = false;
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (tf.ENV.backend.floatPrecision() === 16) {
+<span class="cstat-no" title="statement not covered" >      console.warn(</span>
+          'The current floating point operation precision is only 16-bit');
+    }
+  }
+&nbsp;
+  /** Called in nn/Compilation.js */
+  prepareModel() {
+    this._model._operands.forEach(operand =&gt; {
+      if (utils.isTensor(operand.type)) {
+        const type = this._getOperandType(operand.type);
+        if (operand.value !== null) {   
+          // constant tensor
+          this._operands.push(
+              tf.tensor(operand.value, operand.dimensions, type));
+        } else {                        
+          // variable tensor 
+          const zeroTensor = tf.zeros(operand.dimensions, type);
+          this._operands.push(tf.variable(zeroTensor));
+          zeroTensor.dispose();
+        }
+      } else {
+        this._operands.push(operand);   
+      }
+    }); 
+    this._changeWeightsFormat();
+    this._prepared = true;
+  }
+&nbsp;
+  /**
+   * Called in nn/Execution.js
+   *
+   * @param {Map} inputs 
+   * @param {Map} outputs 
+   */
+  execute(inputs, outputs) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._prepared) {
+<span class="cstat-no" title="statement not covered" >      throw new Error('Model is not prepared');</span>
+    }
+&nbsp;
+    inputs.forEach(input =&gt; {
+      const operand = this._operands[input.index];
+      const inputTensor =
+          tf.tensor(input.buffer, operand.shape, operand.dtype);
+      operand.assign(inputTensor);
+      inputTensor.dispose();
+    });
+&nbsp;
+    this._operations.forEach(operation =&gt; {
+      tf.tidy(() =&gt; {
+        this._executeOperation(operation);
+      });
+    });
+&nbsp;
+    outputs.forEach(output =&gt; {
+      const operand = this._operands[output.index];  
+      output.buffer.set(operand.dataSync());
+    });
+  }
+&nbsp;
+  _executeOperation(operation) {
+    const op = operation.type;
+    const inputs = operation.inputs;
+    const outputs = operation.outputs;
+    const operands = this._operands;
+&nbsp;
+    const FuseFunctionMap = new Map([
+      [FuseCode.NONE, x =&gt; x],
+      [FuseCode.RELU, tf.relu],
+      [FuseCode.RELU1, x =&gt; tf.clipByValue(x, -1, 1)],
+      [FuseCode.RELU6, x =&gt; tf.clipByValue(x, 0, 6)]
+    ]);
+&nbsp;
+    const PaddingCodeMap = new Map([
+      [PaddingCode.SAME, 'same'],
+      [PaddingCode.VALID, 'valid']
+    ]);
+&nbsp;
+    switch(op) {
+      case OperationCode.ADD:
+      case OperationCode.MUL: {
+        const input1 = operands[inputs[0]];
+        const input2 = operands[inputs[1]];
+        const activation = FuseFunctionMap.get(operands[inputs[2]].value[0]);
+        const output = operands[outputs[0]];
+        if (op === OperationCode.ADD) {
+          output.assign(activation(tf.add(input1, input2)));
+        } else {
+          output.assign(activation(tf.mul(input1, input2)));
+        }
+      } break;
+      case OperationCode.CONV_2D:
+      case OperationCode.ATROUS_CONV_2D: {
+        const inCount = inputs.length;
+        if (inCount !== 7 &amp;&amp; inCount !== 10) {
+          throw new Error(`Invalid parameters number of Conv2d ${op}`);
+        }
+        let i = 0;
+        const input = operands[inputs[i++]];
+        const filter = operands[inputs[i++]];
+        const bias = operands[inputs[i++]];
+        const output = operands[outputs[0]];
+        let strideW, strideH;
+        let dilationW, dilationH;
+        let activation;
+        if (inCount === 7) {
+          const paddingCode = operands[inputs[i++]].value[0];
+          const padding = PaddingCodeMap.get(paddingCode);
+          if (op === OperationCode.CONV_2D) {
+            strideW = operands[inputs[i++]].value[0];
+            strideH = operands[inputs[i++]].value[0];
+            [dilationW, dilationH] = [1, 1];
+          } else {
+            dilationW = operands[inputs[i++]].value[0];
+            dilationH = operands[inputs[i++]].value[0];
+            [strideW, strideH] = [1, 1];
+          }
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          output.assign(activation(
+              input.conv2d(filter, [strideH, strideW],
+                           padding, 'NHWC',
+                           [dilationH, dilationW])
+                   .add(bias)));
+        } else {
+          const paddingLeft = operands[inputs[i++]].value[0];
+          const paddingRight = operands[inputs[i++]].value[0];
+          const paddingTop = operands[inputs[i++]].value[0];
+          const paddingBottom = operands[inputs[i++]].value[0];
+          if (op === OperationCode.CONV_2D) {
+            strideW = operands[inputs[i++]].value[0];
+            strideH = operands[inputs[i++]].value[0];
+            [dilationW, dilationH] = [1, 1];
+          } else {
+            dilationW = operands[inputs[i++]].value[0];
+            dilationH = operands[inputs[i++]].value[0];
+            [strideW, strideH] = [1, 1];
+          }
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          if (this._isPaddingEqual(paddingLeft, paddingRight,
+                                   paddingTop, paddingBottom)) {
+            output.assign(activation(
+                input.conv2d(filter, [strideH, strideW],
+                             paddingLeft, 'NHWC',
+                             [dilationH, dilationW], 'floor')
+                     .add(bias)));
+          } else {
+            output.assign(activation(
+                input.pad([[0, 0], [paddingTop, paddingBottom],
+                           [paddingLeft, paddingRight], [0, 0]])
+                     .conv2d(filter, [strideH, strideW],
+                             'valid', 'NHWC',
+                             [dilationH, dilationW])
+                     .add(bias)));
+          }
+        }
+      } break;
+      case OperationCode.DEPTHWISE_CONV_2D:
+      case OperationCode.ATROUS_DEPTHWISE_CONV_2D: {
+        const inCount = inputs.length;
+        if (inCount !== 8 &amp;&amp; inCount !== 11) {
+          throw new Error(
+              `Invalid parameters number of DepthwiseConv2d ${op}`);
+        }
+        let i = 0;
+        let input = operands[inputs[i++]];
+        const filter = operands[inputs[i++]];
+        const bias = operands[inputs[i++]];
+        const output = operands[outputs[0]];
+        let strideW, strideH;
+        let dilationW, dilationH;
+        let depthMultipler;
+        let activation;
+        // pad input if inputChannels is less than filterChannels
+        const inputChannels = input.shape[3];
+        const filterChannels = filter.shape[2];
+        if (inputChannels &lt; filterChannels) {
+          input = input.pad([[0, 0], [0, 0],
+                             [0, 0], [0, filterChannels - inputChannels]]);
+        }
+        if (inCount === 8) {
+          const paddingCode = operands[inputs[i++]].value[0];
+          const padding = PaddingCodeMap.get(paddingCode);
+          if (op === OperationCode.DEPTHWISE_CONV_2D) {
+            strideW = operands[inputs[i++]].value[0];
+            strideH = operands[inputs[i++]].value[0];
+            [dilationW, dilationH] = [1, 1];
+          } else {
+            dilationW = operands[inputs[i++]].value[0];
+            dilationH = operands[inputs[i++]].value[0];
+            [strideW, strideH] = [1, 1];
+          }
+          depthMultipler = operands[inputs[i++]].value[0];
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          output.assign(activation(
+              input.depthwiseConv2D(filter, [strideH, strideW],
+                                    padding, 'NHWC',
+                                    [dilationH, dilationW])
+                   .add(bias)));
+        } else {
+          const paddingLeft = operands[inputs[i++]].value[0];
+          const paddingRight = operands[inputs[i++]].value[0];
+          const paddingTop = operands[inputs[i++]].value[0];
+          const paddingBottom = operands[inputs[i++]].value[0];
+          if (op === OperationCode.DEPTHWISE_CONV_2D) {
+            strideW = operands[inputs[i++]].value[0];
+            strideH = operands[inputs[i++]].value[0];
+            [dilationW, dilationH] = [1, 1];
+          } else {
+            dilationW = operands[inputs[i++]].value[0];
+            dilationH = operands[inputs[i++]].value[0];
+            [strideW, strideH] = [1, 1];
+          }
+          depthMultipler = operands[inputs[i++]].value[0];
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          if (this._isPaddingEqual(paddingLeft, paddingRight,
+                                   paddingTop, paddingBottom)) {
+            output.assign(activation(
+                input.depthwiseConv2D(filter, [strideH, strideW],
+                                      paddingLeft, 'NHWC',
+                                      [dilationH, dilationW], 'floor')
+                     .add(bias)));
+          } else {
+            output.assign(activation(
+                input.pad([[0, 0], [paddingTop, paddingBottom],
+                           [paddingLeft, paddingRight], [0, 0]])
+                     .depthwiseConv2D(filter, [strideH, strideW],
+                                      'valid', 'NHWC',
+                                      [dilationH, dilationW])
+                     .add(bias)));
+          }
+        }
+      } break;
+      case OperationCode.AVERAGE_POOL_2D:
+      case OperationCode.MAX_POOL_2D: {
+        const inCount = inputs.length;
+        if (inCount !== 7 &amp;&amp; inCount !== 10) {
+          throw new Error(`Invalid parameters number of Pooling ${op}`);
+        }
+        let i = 0;
+        const input = operands[inputs[i++]];
+        const output = operands[outputs[0]];
+        let strideW, strideH;
+        let filterW, filterH;
+        let activation;
+        if (inCount === 7) {
+          const paddingCode = operands[inputs[i++]].value[0];
+          const padding = PaddingCodeMap.get(paddingCode);
+          strideW = operands[inputs[i++]].value[0];
+          strideH = operands[inputs[i++]].value[0];
+          filterW = operands[inputs[i++]].value[0];
+          filterH = operands[inputs[i++]].value[0];
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          if (op === OperationCode.AVERAGE_POOL_2D) {
+            output.assign(activation(
+                input.avgPool([filterH, filterW],
+                              [strideH, strideW],
+                              padding)));
+          } else {
+            output.assign(activation(
+                input.maxPool([filterH, filterW],
+                              [strideH, strideW],
+                              padding)));
+          }
+        } else {
+          const paddingLeft = operands[inputs[i++]].value[0];
+          const paddingRight = operands[inputs[i++]].value[0];
+          const paddingTop = operands[inputs[i++]].value[0];
+          const paddingBottom = operands[inputs[i++]].value[0];
+          strideW = operands[inputs[i++]].value[0];
+          strideH = operands[inputs[i++]].value[0];
+          filterW = operands[inputs[i++]].value[0];
+          filterH = operands[inputs[i++]].value[0];
+          activation = FuseFunctionMap.get(operands[inputs[i++]].value[0]);
+          if (this._isPaddingEqual(paddingLeft, paddingRight,
+                                   paddingTop, paddingBottom)) {
+            if (op === OperationCode.AVERAGE_POOL_2D) {
+              output.assign(activation(
+                  input.avgPool([filterH, filterW],
+                                [strideH, strideW],
+                                paddingLeft, 'floor')));
+            } else {
+              output.assign(activation(
+                  input.maxPool([filterH, filterW],
+                                [strideH, strideW],
+                                paddingLeft, 'floor')));
+            }            
+          } else {
+            if (op === OperationCode.AVERAGE_POOL_2D) {
+              throw new Error(
+                  'AVERAGE_POOL_2D with unequal padding is not supported');
+            } else {
+              output.assign(activation(
+                  input.pad([[0, 0], [paddingTop, paddingBottom],
+                             [paddingLeft, paddingRight], [0, 0]],
+                            -1e8 /* a small enough constant */)
+                       .maxPool([filterH, filterW],
+                                [strideH, strideW],
+                                'valid')));
+            }
+          }
+        }
+      } break;
+      case OperationCode.SOFTMAX: {
+        const input = operands[inputs[0]];
+        const beta = operands[inputs[1]].value[0];
+        const output = operands[outputs[0]];
+        if (beta === 1) {
+          output.assign(input.softmax());
+        } else {
+          output.assign(input.mul(tf.scalar(beta)).softmax());
+        }
+      } break;
+      case OperationCode.RESHAPE: {
+        const input = operands[inputs[0]];
+        const targetShape = operands[inputs[1]];
+        const output = operands[outputs[0]];
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (targetShape.value === undefined) {
+          targetShape.value = targetShape.dataSync();
+        }
+        output.assign(input.reshape(targetShape.value));
+      } break;
+      case OperationCode.CONCATENATION: {
+        const numInputTensors = inputs.length - 1;
+        const axis = operands[inputs[numInputTensors]].value[0];
+        const output = operands[outputs[0]];
+        let inputTensors = [];
+        for (let i = 0; i &lt; numInputTensors; ++i) {
+          inputTensors.push(operands[inputs[i]]);
+        }
+        output.assign(tf.concat(inputTensors, axis));
+      } break;
+      case OperationCode.FULLY_CONNECTED: {
+        const input = operands[inputs[0]];
+        const weights = operands[inputs[1]];
+        const bias = operands[inputs[2]];
+        const activation = FuseFunctionMap.get(operands[inputs[3]].value[0]);
+        const output = operands[outputs[0]];
+        const batchSize = utils.product(input.shape) / weights.shape[1];
+        output.assign(activation(
+            input.reshape([batchSize, -1])
+                 .matMul(weights, false, true)
+                 .add(bias)));
+      } break;
+      case OperationCode.RESIZE_BILINEAR: {
+        if (outputs.length &lt; 1 || inputs.length &lt; 3) {
+          throw new Error('Invalid inputs or outputs');
+        }
+        const input = operands[inputs[0]];
+        const newHeight = operands[inputs[1]].value[0];
+        const newWidth = operands[inputs[2]].value[0];
+        const output = operands[outputs[0]];
+        let alignCorner = false;
+        if (inputs.length === 4) {
+          alignCorner = operands[inputs[3]].value[0] !== 0;
+        }
+        output.assign(
+            input.resizeBilinear([newHeight, newWidth], alignCorner));
+      } break;
+    }
+  }
+&nbsp;
+  /** Types supported in tfjs: float32, int32, bool, complex64 */
+  _getOperandType(type) {
+    if (type === OperandCode.TENSOR_FLOAT32) {
+      return 'float32';
+    } else if (type === OperandCode.TENSOR_INT32) {
+      return 'int32';
+    } else {
+      throw new Error(`Operand type ${type} is not supproted`);
+    }
+  }
+&nbsp;
+  /** Change (depthwise) conv2d weights format. */
+  _changeWeightsFormat() {
+    this._operations.forEach(operation =&gt; {
+      const op = operation.type;
+      switch(op) {
+        case OperationCode.CONV_2D:
+        case OperationCode.ATROUS_CONV_2D: {
+          // [outChannels, filterH, filterW, inChannels]
+          // =&gt; [filterH, filterW, inChannels, outChannels]
+          // https://js.tensorflow.org/api/0.14.1/#conv2d
+          const inputs = operation.inputs;
+          const filter = this._operands[inputs[1]];
+          this._operands[inputs[1]] = filter.transpose([1, 2, 3, 0]);
+          filter.dispose();
+        } break;
+        case OperationCode.DEPTHWISE_CONV_2D:
+        case OperationCode.ATROUS_DEPTHWISE_CONV_2D: {
+          // [1, filterH, filterW, outChannels]
+          // =&gt; [filterH, filterW, inChannels, depthMultipler]
+          // https://js.tensorflow.org/api/0.14.1/#depthwiseConv2d
+          const inputs = operation.inputs;
+          const filter = this._operands[inputs[1]];
+          const filterH = filter.shape[1];
+          const filterW = filter.shape[2];
+          const depthMultipler =
+              this._operands[inputs[inputs.length - 2]].value[0];
+          this._operands[inputs[1]] =
+              filter.reshape([filterH, filterW, -1, depthMultipler]);
+          filter.dispose();
+        } break;
+      }
+    });
+  }
+&nbsp;
+  _isPaddingEqual(left, right, top, bottom) {
+    return (left === right) &amp;&amp; (left === top) &amp;&amp; (left === bottom);
+ }
+&nbsp;
+  _deleteAll() <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    this._operands.forEach(operand =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >      if (operand.isDisposed === false) {</span>
+<span class="cstat-no" title="statement not covered" >        operand.dispose();</span>
+      }
+    })
+  }
+&nbsp;
+  static _supportWebGL() {
+    return tf.getBackend() === 'webgl';
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 11 2019 21:08:01 GMT+0800 (China Standard Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

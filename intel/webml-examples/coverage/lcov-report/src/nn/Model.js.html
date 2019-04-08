@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/nn/Model.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/nn/</a> Model.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.66% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>104/116</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.38% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>54/64</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>102/114</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-yes">2208×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1029×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1026×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1050×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11655×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11652×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11631×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11631×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5256×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5253×</span>
+<span class="cline-any cline-yes">5253×</span>
+<span class="cline-any cline-yes">171×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5082×</span>
+<span class="cline-any cline-yes">1455×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3627×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5082×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1908×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1905×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1896×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1887×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1884×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1884×</span>
+<span class="cline-any cline-yes">10434×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1884×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1077×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1068×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1062×</span>
+<span class="cline-any cline-yes">1062×</span>
+<span class="cline-any cline-yes">1068×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1062×</span>
+<span class="cline-any cline-yes">1062×</span>
+<span class="cline-any cline-yes">1059×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11652×</span>
+<span class="cline-any cline-yes">11652×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11646×</span>
+<span class="cline-any cline-yes">447×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">441×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">435×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11631×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6417×</span>
+<span class="cline-any cline-yes">6413×</span>
+<span class="cline-any cline-yes">6413×</span>
+<span class="cline-any cline-yes">6227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6227×</span>
+<span class="cline-any cline-yes">2591×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3636×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6227×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6218×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">186×</span>
+<span class="cline-any cline-yes">186×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1905×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5928×</span>
+<span class="cline-any cline-yes">14526×</span>
+<span class="cline-any cline-yes">5913×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">5670×</span>
+<span class="cline-any cline-yes">5670×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1047×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {OperationCode, OperandCode, PaddingCode, PreferenceCode, FuseCode, OperandLifetime, ResultCode} from './Enums'
+import * as utils from './utils'
+import Compilation from './Compilation';
+&nbsp;
+export default class Model {
+  /**
+   * Create an empty model.
+   */
+  constructor(options = {}) {
+    this._completed = false;
+    this._operands = [];
+    this._operations = [];
+    this._inputs = null;
+    this._outputs = null;
+    this._backend = options.backend;
+  }
+&nbsp;
+  /**
+   * Create a compilation from model.
+   * 
+   * @returns {Compilation} - the compilation object.
+   */
+  async createCompilation() {
+    if (!this._completed) {
+      throw new Error('Model is not finished');
+    }
+    return new Compilation(this);
+  }
+&nbsp;
+  /**
+   * Indicate that we have finished modifying a model.
+   */
+  async finish() {
+    if (this._completed) {
+      throw new Error('finish called more than once');
+    }
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this._inputs === null || this._outputs === null) {
+<span class="cstat-no" title="statement not covered" >      throw new Error('No inputs or outputs of this model');</span>
+    }
+&nbsp;
+    this._sortIntoRunOrder();
+    this._completed = true;
+    return ResultCode.NO_ERROR;
+  }
+&nbsp;
+  /**
+   * Add an operand to a model.
+   * 
+   * @param {number} options.type -  The data type, e.g OperandCode.FLOAT32.
+   * @param {number[]} options.dimensions - The dimensions of the tensor. It should be nullptr for scalars.
+   * @param {number} options.scale - Only for quantized tensors whose value is defined by (value - zeroPoint) * scale.
+   * @param {number} options.zeroPoint - Only for quantized tensors whose value is defined by (value - zeroPoint) * scale.
+   */
+  addOperand(options = {}) {
+    if (this._completed) {
+      throw new Error('addOperand cant modify after model finished');
+    }
+&nbsp;
+    if (!this._validateOperandOptions(options)) {
+      throw new Error('Invalid options');
+    }
+&nbsp;
+    let operand = {
+      type: options.type,
+      dimensions: options.dimensions,
+      scale: options.scale,
+      zeroPoint: options.zeroPoint,
+      numberOfConsumers: 0,
+      lifetime: OperandLifetime.TEMPORARY_VARIABLE,
+      value: null
+    }
+    this._operands.push(operand);
+    // return ResultCode.NO_ERROR;
+  }
+&nbsp;
+  /**
+   * Sets an operand to a constant value.
+   * 
+   * @param {number} index - The index of the model operand we're setting.
+   * @param {TypedArray} value - The typed array containing data.
+   */
+  setOperandValue(index, value) {
+    if (index &gt;= this._operands.length) {
+      throw new Error(`Invalid index ${index}`);
+    }
+    let operand = this._operands[index];
+    if (!this._validateOperandValue(value, operand)) {
+      throw new Error(`Invalid value ${value}`);
+    }
+    if (utils.isTensor(operand.type)) {
+      operand.lifetime = OperandLifetime.CONSTANT_REFERENCE;
+    } else {
+      operand.lifetime = OperandLifetime.CONSTANT_COPY;
+    }
+    operand.value = value;
+    // return ResultCode.NO_ERROR;
+  }
+&nbsp;
+  /**
+   * Add an operation to a model.
+   * 
+   * @param {number} type - The type of the operation.
+   * @param {number[]} inputs - An array of indexes identifying the input operands.
+   * @param {number[]} outputs - An array of indexes identifying the output operands.
+   */
+  addOperation(type, inputs, outputs) {
+    if (this._completed) {
+      throw new Error('addOperation cant modify after model finished');
+    }
+    
+    if (!this._validateOperationCode(type)) {
+      throw new Error(`Invalid operation code ${type}`);
+    }
+    if (!this._validateOperandList(inputs)) {
+      throw new Error(`Invalid inputs ${inputs}`);
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._validateOperandList(outputs)) {
+<span class="cstat-no" title="statement not covered" >      throw new Error(`Invalid outputs ${outputs}`);</span>
+    }
+    let op = {
+      type: type,
+      inputs: inputs,
+      outputs: outputs
+    };
+    inputs.forEach(i =&gt; {
+      this._operands[i].numberOfConsumers += 1;
+    });
+    this._operations.push(op);
+    // return ResultCode.NO_ERROR;
+  }
+&nbsp;
+  /**
+   * Specfifies which operands will be the model's inputs and outputs.
+   * 
+   * @param {number[]} inputs - An array of indexes identifying the input operands.
+   * @param {number[]} outputs - An array of indexes identifying the output operands.
+   */
+  identifyInputsAndOutputs(inputs, outputs) {
+    if (!this._validateOperandList(inputs)) {
+      throw new Error(`Invalid inputs ${inputs}`);
+    }
+    if (!this._validateOperandList(outputs)) {
+      throw new Error(`Invalid outputs ${outputs}`);
+    }
+    this._inputs = inputs;
+    this._inputs.forEach(i =&gt; {
+      this._operands[i].lifetime = OperandLifetime.MODEL_INPUT;
+    })
+    this._outputs = outputs;
+    this._outputs.forEach(i =&gt; {
+      this._operands[i].lifetime = OperandLifetime.MODEL_OUTPUT;
+    })
+    // return ResultCode.NO_ERROR;
+  }
+&nbsp;
+  // private methods
+  _validateOperandOptions(options) {
+    let type = options.type;
+    if (!utils.validateEnum(type, OperandCode)) {
+      console.error(`Invalid type ${options.type}`);
+      return false;
+    }
+    if (type === OperandCode.TENSOR_QUANT8_ASYMM) {
+      if (typeof options.zeroPoint === 'undefined') {
+        console.error('zeroPoint is undefined');
+        return false;
+      } else if (options.zeroPoint &lt; 0 || options.zeroPoint &gt; 255) {
+        console.error(`Invalid zeroPoint value ${options.zeroPoint}`);
+        return false;
+      }
+      if (options.scale &lt; 0.0) {
+        console.error(`Invalid scale ${options.scale}`);
+        return false;
+      }
+    }
+    return true;
+  }
+&nbsp;
+  _validateOperandValue(value, operand) {
+    let type = operand.type;
+    let arrayType = utils.operandCodeToTypedArrayMap.get(type);
+    if (value instanceof arrayType) {
+      let valueLength = value.length * value.BYTES_PER_ELEMENT;
+      let neededLength;
+      if (utils.isTensor(type)) {
+        neededLength = utils.sizeOfTensorData(type, operand.dimensions);
+      } else {
+        neededLength = utils.sizeOfScalarData(type);
+      }
+      if (valueLength != neededLength) {
+        console.error(`Sets ${valueLength} bytes when needing ${neededLength}`);
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      console.error(`Invalid value type ${typeof value}`);
+      return false;
+    }
+  }
+&nbsp;
+  _validateOperationCode(type) {
+    return utils.validateEnum(type, OperationCode);
+  }
+&nbsp;
+  _validateOperandList(list) {
+    let ret = true;
+    list.forEach(index =&gt; {if (index &gt;= this._operands.length) ret = false;})
+    return ret;
+  }
+&nbsp;
+  _sortIntoRunOrder() {
+    let opsReadyToRun = [];
+    let runOrder = [];
+    let unknownInputCount = new Array(this._operations.length);
+    unknownInputCount.fill(0);
+    let operandToOperations = new Map();
+    this._operations.forEach((operation, operationIndex) =&gt; {
+      let inputs = operation.inputs;
+      inputs.forEach(operandIndex =&gt; {
+        let lifetime = this._operands[operandIndex].lifetime;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (lifetime === OperandLifetime.TEMPORARY_VARIABLE || lifetime === OperandLifetime.MODEL_OUTPUT) {
+<span class="cstat-no" title="statement not covered" >          unknownInputCount[operationIndex] += 1;</span>
+<span class="cstat-no" title="statement not covered" >          if (!operandToOperations.has(operandIndex)) {</span>
+<span class="cstat-no" title="statement not covered" >            operandToOperations.set(operandIndex, [operationIndex]);</span>
+          } else {
+            let array = <span class="cstat-no" title="statement not covered" >operandToOperations.get(operandIndex);</span>
+<span class="cstat-no" title="statement not covered" >            array.push(operationIndex)</span>
+<span class="cstat-no" title="statement not covered" >            operandToOperations.set(operandIndex, array);</span>
+          }
+        }
+      });
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (unknownInputCount[operationIndex] === 0) {
+        opsReadyToRun.push(operationIndex)
+      }
+    });
+&nbsp;
+    while(opsReadyToRun.length &gt; 0) {
+      let opIndex = opsReadyToRun.pop();
+      let operation = this._operations[opIndex];
+      runOrder.push(operation);
+&nbsp;
+      operation.outputs.forEach(operandIndex =&gt; {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (operandToOperations.has(operandIndex)) {
+<span class="cstat-no" title="statement not covered" >          operandToOperations.get(operandIndex).forEach(operationIndex =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >            unknownInputCount[operationIndex] -= 1;</span>
+<span class="cstat-no" title="statement not covered" >            if (unknownInputCount[operationIndex] === 0) {</span>
+<span class="cstat-no" title="statement not covered" >              opsReadyToRun.push(operationIndex);</span>
+            }
+          });
+        }
+      });
+    }
+&nbsp;
+    this._operations = runOrder;
+  }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 11 2019 21:08:01 GMT+0800 (China Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

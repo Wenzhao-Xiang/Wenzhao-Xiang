@@ -22,6 +22,7 @@ class Utils {
     this.canvasShowElement = canvasShow;
     this.updateProgress;
     this.loaded = false;
+    this.resolveGetRequiredOps = null;
     this.initialized = false;
   }
 
@@ -43,10 +44,7 @@ class Utils {
     this.margin = newModel.margin;
     this.preOptions = newModel.preOptions || {};
     this.postOptions = newModel.postOptions || {};
-    // this.inputTensor = [new Uint8Array(this.inputSize.reduce((a, b) => a * b))];
-    // this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);	    
     if (this.modelType === 'SSD') {
-      // this.outputClassScoresTensor = new Uint8Array(this.numBoxes * this.numClasses);
       this.anchors = generateAnchors({});
       this.boxSize = newModel.box_size;
       this.numBoxes = newModel.num_boxes;
@@ -107,7 +105,31 @@ class Utils {
     let elapsed = performance.now() - start;
     console.log(`warmup time: ${elapsed.toFixed(2)} ms`);
     this.initialized = true;
+
+    if (this.resolveGetRequiredOps) {
+      this.resolveGetRequiredOps(this.model.getRequiredOps());
+    }
+
     return 'SUCCESS';
+  }
+
+  async getRequiredOps() {
+    if (!this.initialized) {
+      return new Promise(resolve => this.resolveGetRequiredOps = resolve);
+    } else {
+      return this.model.getRequiredOps();
+    }
+  }
+
+  getSubgraphsSummary() {
+    if (this.model._backend !== 'WebML' &&
+        this.model &&
+        this.model._compilation &&
+        this.model._compilation._preparedModel) {
+      return this.model._compilation._preparedModel.getSubgraphsSummary();
+    } else {
+      return [];
+    }
   }
 
   async predict(imageSource) {

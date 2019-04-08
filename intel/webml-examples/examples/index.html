@@ -36,7 +36,7 @@
   <header id='header'>
     <div class='container'>
       <div id='logo' class='pull-left'>
-        <a href='index.html'>
+        <a href='index.html' id='logo'>
           <svg preserveAspectRatio='xMidYMid meet'
             viewBox='-1.2596205660195778 -1.002390572390567 185.26504164633673 39.987210231814544' width='181.27'
             height='35.99'>
@@ -62,13 +62,14 @@
 
       <nav id='nav-container'>
         <ul class='nav-menu'>
-          <li class='menu-has-children'><a href='index.html'>Examples</a>
+          <li class='menu-has-children'><a href='./'>Examples</a>
             <ul>
-              <li><a href='image_classification/index.html'>Image Classification</a></li>
-              <li><a href='object_detection/index.html'>Person/Object Detection</a></li>
-              <li><a href='semantic_segmentation/index.html'>Semantic Segmentation</a></li>
-              <li><a href='skeleton_detection/index.html'>Skeleton Detection</a></li>
-              <li><a href='facial_landmark_detection/index.html'>Facial Landmark Detection</a></li>
+              <li><a href='image_classification/'>Image Classification</a></li>
+              <li><a href='object_detection/'>Person/Object Detection</a></li>
+              <li><a href='semantic_segmentation/'>Semantic Segmentation</a></li>
+              <li><a href='skeleton_detection/'>Skeleton Detection</a></li>
+              <li><a href='facial_landmark_detection/'>Facial Landmark Detection</a></li>
+              <li><a href='super_resolution/'>Super Resolution</a></li>
             </ul>
           </li>
           <li><a href='model.html'>Models</a></li>
@@ -85,11 +86,11 @@
 
       <div class='row'>
 
-      <div class='examples-col col-lg-4 col-xs-12'>
+        <div class='examples-col col-lg-4 col-xs-12'>
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon'>
-                <a href='image_classification/index.html'>
+                <a href='image_classification/'>
                   <svg class='fa fa-image' aria-hidden='true' data-prefix='far' data-icon='image'
                     class='svg-inline--fa fa-image fa-w-16' role='img' viewBox='0 0 512 512'>
                     <path fill='currentColor'
@@ -101,7 +102,7 @@
             </div>
             <div>
               <h3>
-                <a href='image_classification/index.html'>Image Classification</a>
+                <a href='image_classification/'>Image Classification</a>
               </h3>
               <p>
                 Predicting a single label (or a distribution over labels as shown here to indicate our confidence) for
@@ -115,7 +116,7 @@
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon'>
-                <a href='object_detection/index.html'>
+                <a href='object_detection/'>
                   <svg aria-hidden='true' data-prefix='far' data-icon='object-group'
                     class='svg-inline--fa fa-object-group fa-w-16' role='img' viewBox='0 0 512 512'>
                     <path fill='currentColor'
@@ -127,7 +128,7 @@
             </div>
             <div>
               <h3>
-                <a href='object_detection/index.html'>Person/Object Detection</a>
+                <a href='object_detection/'>Person/Object Detection</a>
               </h3>
 
               <p>
@@ -143,17 +144,19 @@
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon'>
-                <svg aria-hidden='true' data-prefix='fas' data-icon='dog' class='svg-inline--fa fa-dog fa-w-16'
-                  role='img' viewBox='0 0 512 512'>
-                  <path fill='currentColor'
-                    d='M496 96h-64l-7.16-14.31A32 32 0 0 0 396.22 64H342.6l-27.28-27.28C305.23 26.64 288 33.78 288 48.03v149.84l128 45.71V208h32c35.35 0 64-28.65 64-64v-32c0-8.84-7.16-16-16-16zm-112 48c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16zM96 224c-17.64 0-32-14.36-32-32 0-17.67-14.33-32-32-32S0 174.33 0 192c0 41.66 26.83 76.85 64 90.1V496c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V384h160v112c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V277.55L266.05 224H96z'>
-                  </path>
-                </svg>
+                <a href='semantic_segmentation/'>
+                  <svg aria-hidden='true' data-prefix='fas' data-icon='dog' class='svg-inline--fa fa-dog fa-w-16'
+                    role='img' viewBox='0 0 512 512'>
+                    <path fill='currentColor'
+                      d='M496 96h-64l-7.16-14.31A32 32 0 0 0 396.22 64H342.6l-27.28-27.28C305.23 26.64 288 33.78 288 48.03v149.84l128 45.71V208h32c35.35 0 64-28.65 64-64v-32c0-8.84-7.16-16-16-16zm-112 48c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16zM96 224c-17.64 0-32-14.36-32-32 0-17.67-14.33-32-32-32S0 174.33 0 192c0 41.66 26.83 76.85 64 90.1V496c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V384h160v112c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V277.55L266.05 224H96z'>
+                    </path>
+                  </svg>
+                </a>
               </div>
             </div>
             <div>
               <h3>
-                <a href='semantic_segmentation/index.html'>Semantic Segmentation</a>
+                <a href='semantic_segmentation/'>Semantic Segmentation</a>
               </h3>
 
               <p>
@@ -168,7 +171,7 @@
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon'>
-                <a href='skeleton_detection/index.html'>
+                <a href='skeleton_detection/'>
                   <svg aria-hidden='true' data-prefix='fas' data-icon='child' class='svg-inline--fa fa-child fa-w-12'
                     role='img' viewBox='0 0 384 512'>
                     <path fill='currentColor'
@@ -180,7 +183,7 @@
             </div>
             <div>
               <h3>
-                <a href='skeleton_detection/index.html'>Skeleton Detection</a>
+                <a href='skeleton_detection/'>Skeleton Detection</a>
               </h3>
 
               <p>
@@ -210,7 +213,8 @@
                 Face Recognition
               </h3>
               <p>
-                <span class='wip'>WIP</span> Detecting faces of participants by using object detection and checks whether each face was present
+                <span class='wip'>WIP</span> Detecting faces of participants by using object detection and checks
+                whether each face was present
                 or not.
               </p>
             </div>
@@ -222,22 +226,24 @@
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon disabled'>
-
-                <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="meh-rolling-eyes"
-                  class="svg-inline--fa fa-meh-rolling-eyes fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 496 512">
-                  <path fill="currentColor"
-                    d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm88-304c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm0 112c-22.1 0-40-17.9-40-40 0-13.6 7.3-25.1 17.7-32.3-1 2.6-1.7 5.3-1.7 8.3 0 13.3 10.7 24 24 24s24-10.7 24-24c0-2.9-.7-5.7-1.7-8.3 10.4 7.2 17.7 18.7 17.7 32.3 0 22.1-17.9 40-40 40zm-104-40c0-39.8-32.2-72-72-72s-72 32.2-72 72 32.2 72 72 72 72-32.2 72-72zm-112 0c0-13.6 7.3-25.1 17.7-32.3-1 2.6-1.7 5.3-1.7 8.3 0 13.3 10.7 24 24 24s24-10.7 24-24c0-2.9-.7-5.7-1.7-8.3 10.4 7.2 17.7 18.7 17.7 32.3 0 22.1-17.9 40-40 40s-40-17.9-40-40zm192 128H184c-13.2 0-24 10.8-24 24s10.8 24 24 24h128c13.2 0 24-10.8 24-24s-10.8-24-24-24z">
-                  </path>
-                </svg>
+                <a href='facial_landmark_detection/'>
+                  <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="meh-rolling-eyes"
+                    class="svg-inline--fa fa-meh-rolling-eyes fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 496 512">
+                    <path fill="currentColor"
+                      d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm88-304c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm0 112c-22.1 0-40-17.9-40-40 0-13.6 7.3-25.1 17.7-32.3-1 2.6-1.7 5.3-1.7 8.3 0 13.3 10.7 24 24 24s24-10.7 24-24c0-2.9-.7-5.7-1.7-8.3 10.4 7.2 17.7 18.7 17.7 32.3 0 22.1-17.9 40-40 40zm-104-40c0-39.8-32.2-72-72-72s-72 32.2-72 72 32.2 72 72 72 72-32.2 72-72zm-112 0c0-13.6 7.3-25.1 17.7-32.3-1 2.6-1.7 5.3-1.7 8.3 0 13.3 10.7 24 24 24s24-10.7 24-24c0-2.9-.7-5.7-1.7-8.3 10.4 7.2 17.7 18.7 17.7 32.3 0 22.1-17.9 40-40 40s-40-17.9-40-40zm192 128H184c-13.2 0-24 10.8-24 24s10.8 24 24 24h128c13.2 0 24-10.8 24-24s-10.8-24-24-24z">
+                    </path>
+                  </svg>
+                </a>
               </div>
             </div>
             <div>
               <h3>
-                <a href='face_landmark_detection/index.html'>Facial Landmark Detection</a>
+                <a href='facial_landmark_detection/index.html'>Facial Landmark Detection</a>
               </h3>
               <p>
-                <span class='wip'>WIP</span> Detecting facial landmarks like eyes, nose, mouth, etc., which can be used for web-based try-on
+                Detecting facial landmarks like eyes, nose, mouth, etc., which can be used
+                for web-based try-on
                 simulator of online store.
               </p>
             </div>
@@ -273,21 +279,23 @@
           <div class='card card-block text-center'>
             <div>
               <div class='feature-icon disabled'>
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search-plus"
-                  class="svg-inline--fa fa-search-plus fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512">
-                  <path fill="currentColor"
-                    d="M304 192v32c0 6.6-5.4 12-12 12h-56v56c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-56h-56c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h56v-56c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v56h56c6.6 0 12 5.4 12 12zm201 284.7L476.7 505c-9.4 9.4-24.6 9.4-33.9 0L343 405.3c-4.5-4.5-7-10.6-7-17V372c-35.3 27.6-79.7 44-128 44C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208c0 48.3-16.4 92.7-44 128h16.3c6.4 0 12.5 2.5 17 7l99.7 99.7c9.3 9.4 9.3 24.6 0 34zM344 208c0-75.2-60.8-136-136-136S72 132.8 72 208s60.8 136 136 136 136-60.8 136-136z">
-                  </path>
-                </svg>
+                <a href='super_resolution/'>
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search-plus"
+                    class="svg-inline--fa fa-search-plus fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
+                    <path fill="currentColor"
+                      d="M304 192v32c0 6.6-5.4 12-12 12h-56v56c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-56h-56c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h56v-56c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v56h56c6.6 0 12 5.4 12 12zm201 284.7L476.7 505c-9.4 9.4-24.6 9.4-33.9 0L343 405.3c-4.5-4.5-7-10.6-7-17V372c-35.3 27.6-79.7 44-128 44C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208c0 48.3-16.4 92.7-44 128h16.3c6.4 0 12.5 2.5 17 7l99.7 99.7c9.3 9.4 9.3 24.6 0 34zM344 208c0-75.2-60.8-136-136-136S72 132.8 72 208s60.8 136 136 136 136-60.8 136-136z">
+                    </path>
+                  </svg>
+                </a>
               </div>
             </div>
             <div>
               <h3 class='disabled'>
-                Super Resolution
+                <a href='super_resolution/'>Super Resolution</a>
               </h3>
               <p>
-                <span class='wip'>WIP</span> Generating higher-resolution image or video frames to prevent degradation of the perceived image or
+                Generating higher-resolution image or video frames to prevent degradation of the perceived image or
                 video quality.
               </p>
             </div>
@@ -399,6 +407,7 @@
         </div>
 
       </div>
+    </div>  
   </section>
 
   <footer>
@@ -417,6 +426,7 @@
           <p>&copy;2019 <a href='index.html'>WebNN API</a></p>
         </div>
       </div>
+    </div>
   </footer>
 
   <a href='https://github.com/intel/webml-polyfill/' class='github-corner' aria-label='View source on GitHub'>
@@ -434,9 +444,10 @@
   </a>
 
   <script src='static/lib/jquery/jquery.min.js'></script>
+  <script src='static/lib/jquery/jquery-migrate-3.0.1.min.js'></script>
   <script src='static/lib/superfish/superfish.min.js'></script>
   <script src='static/lib/stickyjs/sticky.js'></script>
-  <script src='util/uicommon.js'></script>
+  <script src='static/js/ui.common.js'></script>
 
 </body>
 

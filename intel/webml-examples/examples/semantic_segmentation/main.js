@@ -1,20 +1,9 @@
-const videoElement = document.getElementById('video');
-const imageElement = document.getElementById('image');
-const inputElement = document.getElementById('input');
 const outputCanvas = document.getElementById('canvasvideo');
-const progressBar = document.getElementById('progressBar');
 
-let currentBackend = getSearchParamsBackend();
-let currentModel = getSearchParamsModel();
-let currentPrefer = getSearchParamsPrefer();
 let currentTab = 'image';
 
 let clippedSize = [];
 let hoverPos = null;
-
-let streaming = false;
-let stats = new Stats();
-let track;
 
 const counterN = 20;
 let counter = 0;
@@ -23,29 +12,6 @@ let drawTimeAcc = 0;
 
 let renderer = new Renderer(outputCanvas);
 renderer.setup();
-
-const showAlert = (error) => {
-  console.error(error);
-  let div = document.createElement('div');
-  // div.setAttribute('id', 'backendAlert');
-  div.setAttribute('class', 'backendAlert alert alert-warning alert-dismissible fade show');
-  div.setAttribute('role', 'alert');
-  div.innerHTML = `<strong>${error}</strong>`;
-  div.innerHTML += `<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>`;
-  let container = document.getElementById('container');
-  container.insertBefore(div, container.firstElementChild);
-}
-
-const updateProgress = (ev) => {
-  if (ev.lengthComputable) {
-    let totalSize = ev.total / (1000 * 1000);
-    let loadedSize = ev.loaded / (1000 * 1000);
-    let percentComplete = ev.loaded / ev.total * 100;
-    percentComplete = percentComplete.toFixed(0);
-    progressBar.style = `width: ${percentComplete}%`;
-    updateLoading(loadedSize.toFixed(1), totalSize.toFixed(1), percentComplete);
-  }
-}
 
 let utils = new Utils();
 utils.updateProgress = updateProgress;
@@ -71,15 +37,6 @@ const updateResult = (result) => {
   catch (e) {
     console.log(e);
   }
-}
-
-const logConfig = () => {
-  console.log(`Model: ${currentModel}, Backend: ${currentBackend}, Prefer: ${currentPrefer}`);
-}
-
-const errorHandler = (e) => {
-  showAlert(e);
-  showError(null, null);
 }
 
 const startPredict = async () => {
@@ -128,6 +85,7 @@ const predictAndDraw = async (source, camera = false) => {
   renderer.drawOutputs(result.segMap)
   renderer.highlightHoverLabel(hoverPos);
   showResults();
+  buttonUI(us === 'camera');
 }
 
 const predictPath = (camera) => {
@@ -140,28 +98,24 @@ const updateScenario = async (camera = false) => {
   predictPath(camera);
 }
 
-const updateBackend = async (camera = false) => {
+const updateBackend = async (camera = false, force = false) => {
+  if (force) {
+    utils.initialized = false;
+  }
   streaming = false;
+  try { utils.deleteAll(); } catch (e) { }
   logConfig();
+  await showProgress('Updating backend ...');
   try {
+    getOffloadOps(currentBackend, currentPrefer);
     await utils.init(currentBackend, currentPrefer);
+    showSubGraphsSummary(utils.getSubgraphsSummary());
     predictPath(camera);
   }
   catch (e) {
     errorHandler(e);
   }
 }
-
-inputElement.addEventListener('change', (e) => {
-  let files = e.target.files;
-  if (files.length > 0) {
-    imageElement.src = URL.createObjectURL(files[0]);
-  }
-}, false);
-
-imageElement.addEventListener('load', () => {
-  predictAndDraw(imageElement, false);
-}, false);
 
 const main = async (camera = false) => {
   if (currentModel === 'none_none') {
@@ -176,7 +130,9 @@ const main = async (camera = false) => {
   try {
     let model = semanticSegmentationModels.filter(f => f.modelFormatName == currentModel);
     await utils.loadModel(model[0]);
+    getOffloadOps(currentBackend, currentPrefer);
     await utils.init(currentBackend, currentPrefer);
+    showSubGraphsSummary(utils.getSubgraphsSummary());
   } catch (e) {
     errorHandler(e);
   }
