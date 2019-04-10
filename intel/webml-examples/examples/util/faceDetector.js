@@ -44,18 +44,28 @@ class FaceDetecor {
     this.margin = newModel.margin;
     this.preOptions = newModel.preOptions || {};
     this.postOptions = newModel.postOptions || {};
-    this.inputTensor = [new Float32Array(this.inputSize.reduce((a, b) => a * b))];
-    this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);	    
     if (this.modelType === 'SSD') {
-      this.outputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
-      this.anchors = generateAnchors({});
+      this.isQuantized = newModel.isQuantized;
       this.boxSize = newModel.box_size;
       this.numBoxes = newModel.num_boxes;
-      this.outputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);
-      this.outputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
-      this.outputTensor = this.prepareSsdOutputTensor(this.outputBoxTensor, this.outputClassScoresTensor);
+      this.outH = newModel.outH;
+      this.feature_map_shape = newModel.feature_map_shape;
+      this.anchors = generateAnchors({feature_map_shape_list: this.feature_map_shape});
+      let typedArray;
+      if (this.isQuantized) {
+        typedArray = Uint8Array;
+        this.deQuantizedOutputBoxTensor = new Float32Array(this.numBoxes * this.boxSize);
+        this.deQuantizedOutputClassScoresTensor = new Float32Array(this.numBoxes * this.numClasses);
+      } else {
+        typedArray = Float32Array;
+      }
+      this.inputTensor = [new typedArray(this.inputSize.reduce((a, b) => a * b))];
+      this.outputBoxTensor = new typedArray(this.numBoxes * this.boxSize);
+      this.outputClassScoresTensor = new typedArray(this.numBoxes * this.numClasses);
+      this.outputTensor = this.prepareSsdOutputTensor(this.outputBoxTensor, this.outputClassScoresTensor, this.outH);
     } else {
       this.anchors = newModel.anchors;
+      this.inputTensor = [new Float32Array(this.inputSize.reduce((a, b) => a * b))];
       this.outputTensor = [new Float32Array(this.outputSize)];
     }
     this.rawModel = null;
@@ -125,8 +135,16 @@ class FaceDetecor {
   async getFaceBoxes(imageSource) {
     if (this.modelType === 'SSD') {
       let time = await this.predictSSD(imageSource);
-      decodeOutputBoxTensor({}, this.outputBoxTensor, this.anchors);
-      let [totalDetections, boxesList, scoresList, classesList] = NMS({num_classes: 2}, this.outputBoxTensor, this.outputClassScoresTensor);
+      let outputBoxTensor, outputClassScoresTensor;
+      if (this.isQuantized) {
+        [outputBoxTensor, outputClassScoresTensor] = 
+          this.deQuantizeOutputTensor(this.outputBoxTensor, this.outputClassScoresTensor, this.model._deQuantizeParams, this.outH);
+      } else {
+        outputBoxTensor = this.outputBoxTensor;
+        outputClassScoresTensor = this.outputClassScoresTensor;
+      }
+      decodeOutputBoxTensor({num_boxes: this.numBoxes}, outputBoxTensor, this.anchors);
+      let [totalDetections, boxesList, scoresList, classesList] = NMS({num_classes: 2, num_boxes: this.numBoxes}, outputBoxTensor, outputClassScoresTensor);
       boxesList = cropSSDBox(imageSource, totalDetections, boxesList, this.margin);
       let outputBoxes = [];
       for (let i = 0; i < totalDetections; ++i) {
@@ -253,9 +271,8 @@ class FaceDetecor {
     }
   }
 
-  prepareSsdOutputTensor(outputBoxTensor, outputClassScoresTensor) {
+  prepareSsdOutputTensor(outputBoxTensor, outputClassScoresTensor, outH) {
     let outputTensor = [];
-    const outH = [1083, 600, 150, 54, 24, 6];
     const boxLen = 4;
     const classLen = 2;
     let boxOffset = 0;
@@ -271,6 +288,36 @@ class FaceDetecor {
       classOffset += classLen * outH[i];
     }
     return outputTensor;
+  }
+
+  deQuantizeOutputTensor(outputBoxTensor, outputClassScoresTensor, quantizedParams, outH) {
+    const boxLen = 4;
+    const classLen = 2;
+    let boxOffset = 0;
+    let classOffset = 0;
+    let boxTensor, classTensor;
+    let boxScale, boxZeroPoint, classScale, classZeroPoint;
+    let dqBoxOffset = 0;
+    let dqClassOffset = 0;
+    for (let i = 0; i < 6; ++i) {
+      boxTensor = outputBoxTensor.subarray(boxOffset, boxOffset + boxLen * outH[i]);
+      classTensor = outputClassScoresTensor.subarray(classOffset, classOffset + classLen * outH[i]);
+      boxScale = quantizedParams[2 * i].scale;
+      boxZeroPoint = quantizedParams[2 * i].zeroPoint;
+      classScale = quantizedParams[2 * i + 1].scale;
+      classZeroPoint = quantizedParams[2 * i + 1].zeroPoint;
+      for (let j = 0; j < boxTensor.length; ++j) {
+        this.deQuantizedOutputBoxTensor[dqBoxOffset] = boxScale* (boxTensor[j] - boxZeroPoint);
+        ++dqBoxOffset;
+      }
+      for (let j = 0; j < classTensor.length; ++j) {
+        this.deQuantizedOutputClassScoresTensor[dqClassOffset] = classScale * (classTensor[j] - classZeroPoint);
+        ++dqClassOffset;
+      }
+      boxOffset += boxLen * outH[i];
+      classOffset += classLen * outH[i];
+    }
+    return [this.deQuantizedOutputBoxTensor, this.deQuantizedOutputClassScoresTensor];
   }
 
   deleteAll() {

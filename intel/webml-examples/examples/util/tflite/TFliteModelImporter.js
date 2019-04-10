@@ -350,6 +350,9 @@ class TFliteModelImporter {
         case tflite.BuiltinOperator.MAXIMUM: {
           opType = this._nn.MAXIMUM;
         } break;
+        case tflite.BuiltinOperator.PAD: {
+          opType = this._nn.PAD;
+        } break;
         default: {
           throw new Error(`operator type ${opCode} is not supported.`);
         }

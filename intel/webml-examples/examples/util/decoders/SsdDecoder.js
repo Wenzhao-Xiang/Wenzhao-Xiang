@@ -150,7 +150,7 @@ function NMS(options, outputBoxTensor, outputClassScoresTensor) {
   // Using a little higher threshold and lower max detections can save inference time with little performance loss.
   const {
     score_threshold = 0.1, // 1e-8
-    iou_threshold = 0.5,
+    iou_threshold = 0.3,
     max_detections_per_class = 10, // 100
     max_total_detections = 100,
     num_boxes = 1083 + 600 + 150 + 54 + 24 + 6,

@@ -518,6 +518,8 @@ const faceDetectionModels = [{
     box_size: 4,
     num_classes: 2,
     num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+    outH: [1083, 600, 150, 54, 24, 6],
+    feature_map_shape: [[19, 19], [10, 10], [5, 5], [3, 3], [2, 2], [1, 1]], 
     margin: [1.2,1.2,0.8,1.1],
     inputSize: [300, 300, 3],
     preOptions: {
@@ -535,6 +537,8 @@ const faceDetectionModels = [{
     box_size: 4,
     num_classes: 2,
     num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+    outH: [1083, 600, 150, 54, 24, 6],
+    feature_map_shape: [[19, 19], [10, 10], [5, 5], [3, 3], [2, 2], [1, 1]], 
     margin: [1.2,1.2,0.8,1.1],
     inputSize: [300, 300, 3],
     preOptions: {
@@ -552,6 +556,8 @@ const faceDetectionModels = [{
     box_size: 4,
     num_classes: 2,
     num_boxes: 1083 + 600 + 150 + 54 + 24 + 6,
+    outH: [1083, 600, 150, 54, 24, 6],
+    feature_map_shape: [[19, 19], [10, 10], [5, 5], [3, 3], [2, 2], [1, 1]], 
     margin: [1.2,1.2,0.8,1.1],
     inputSize: [300, 300, 3],
     preOptions: {
@@ -559,6 +565,22 @@ const faceDetectionModels = [{
       std: [127.5, 127.5, 127.5],
     },
     intro: 'SSDLite Mobilenet V2 Face is based on SSDLite Mobilenet V2 model structure, and is trained by Tensorflow Object Detection API with WIDER_FACE dataset for face detection task.',
+    paperUrl: 'https://arxiv.org/abs/1801.04381'
+  }, {
+    modelName: 'SSD MobileNet v2 Quant(TFlite)',
+    modelFormatName: 'ssd_mobilenetv2_face_quant_tflite',
+    isQuantized: true,
+    modelSize: '5.5MB',
+    type: 'SSD',
+    modelFile: '../facial_landmark_detection/model/ssd_mobilenetv2_face_quant.tflite',
+    box_size: 4,
+    num_classes: 2,
+    num_boxes: 1200 + 600 + 150 + 54 + 24 + 6,
+    outH: [1200, 600, 150, 54, 24, 6],
+    feature_map_shape: [[20, 20], [10, 10], [5, 5], [3, 3], [2, 2], [1, 1]], 
+    margin: [0.7,0.7,0.6,1.05],
+    inputSize: [320, 320, 3],
+    intro: 'Quantized version of SSD Mobilenet v2',
     paperUrl: 'https://arxiv.org/abs/1801.04381'
   }, {
     modelName: 'Tiny Yolo v2 (TFlite)',
