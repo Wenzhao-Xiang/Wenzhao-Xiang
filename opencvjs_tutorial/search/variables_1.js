@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['a',['a',['../d1/d10/classcv_1_1MatExpr.html#afedc79d4d837bced7282ef1023e72299',1,'cv::MatExpr::a()'],['../db/dbb/structcv_1_1detail_1_1CompressedRectilinearProjector.html#a13adc4baeb85a15e42b374d5a1662e1b',1,'cv::detail::CompressedRectilinearProjector::a()'],['../d0/ded/structcv_1_1detail_1_1CompressedRectilinearPortraitProjector.html#acb527ebab56f189dbef042b9c1fccc7e',1,'cv::detail::CompressedRectilinearPortraitProjector::a()'],['../d2/df1/structcv_1_1detail_1_1PaniniProjector.html#aded47ba50b525d0785de5337af62d9ef',1,'cv::detail::PaniniProjector::a()'],['../d3/dd1/structcv_1_1detail_1_1PaniniPortraitProjector.html#abf6e99d637de8f252a1d879e628fac12',1,'cv::detail::PaniniPortraitProjector::a()']]],
+  ['acrosschannels',['acrossChannels',['../d4/db5/classcv_1_1dnn_1_1MVNLayer.html#a0645112095a698c422d68865ac998a8b',1,'cv::dnn::MVNLayer']]],
+  ['acrossspatial',['acrossSpatial',['../dc/df8/classcv_1_1dnn_1_1NormalizeBBoxLayer.html#a059aea81d1937f7de5a4f19625097940',1,'cv::dnn::NormalizeBBoxLayer']]],
+  ['addeddesccount',['addedDescCount',['../dc/de2/classcv_1_1FlannBasedMatcher.html#a8854dcad3e17bab50c39f60ddff76d21',1,'cv::FlannBasedMatcher']]],
+  ['adjust_5fpads',['adjust_pads',['../d5/d1f/classcv_1_1dnn_1_1BaseConvolutionLayer.html#a9d3e0b03824019a475737a8877c118e0',1,'cv::dnn::BaseConvolutionLayer']]],
+  ['adjustpad',['adjustPad',['../d5/d1f/classcv_1_1dnn_1_1BaseConvolutionLayer.html#a5cb93bf1ee32d695e5162d8ab27584d1',1,'cv::dnn::BaseConvolutionLayer']]],
+  ['algo',['algo',['../d1/db2/classcv_1_1flann_1_1Index.html#abc976a54030cf8ccfa9b08687207b6b4',1,'cv::flann::Index']]],
+  ['allocator',['allocator',['../d3/d63/classcv_1_1Mat.html#a4d2eb7a536cd5a0f18808b6112111d6a',1,'cv::Mat::allocator()'],['../d7/d45/classcv_1_1UMat.html#a1fb3a925c15a454a5edba1cb0f0008fd',1,'cv::UMat::allocator()']]],
+  ['allocatorflags_5f',['allocatorFlags_',['../db/d58/structcv_1_1UMatData.html#a398a4153df8d1af5fd5a26996d1b4684',1,'cv::UMatData']]],
+  ['alpha',['alpha',['../d1/d10/classcv_1_1MatExpr.html#ad15093b928c0af84cc1e88179ef4d638',1,'cv::MatExpr::alpha()'],['../d8/d8d/classcv_1_1dnn_1_1LRNLayer.html#af6eb8d2f7b89b29e7db7e06e87933702',1,'cv::dnn::LRNLayer::alpha()']]],
+  ['angle',['angle',['../db/dd6/classcv_1_1RotatedRect.html#a6bd95a46f9ab83a4f384a4d4845e6332',1,'cv::RotatedRect::angle()'],['../d2/d29/classcv_1_1KeyPoint.html#a4484e94502486930e94e7391adf9d215',1,'cv::KeyPoint::angle()'],['../d9/daa/structcvhalKeyPoint.html#a1fda20d16c9d38251b1224047001782d',1,'cvhalKeyPoint::angle()']]],
+  ['api_5fdescription',['api_description',['../d3/dde/structOpenCV__API__Header.html#a126f169513031bd754899ff3f9b4a3bd',1,'OpenCV_API_Header']]],
+  ['api_5fversion',['api_version',['../d3/dde/structOpenCV__API__Header.html#a40d9cc3d5864f0d2a99e306228a37cdc',1,'OpenCV_API_Header']]],
+  ['arrays',['arrays',['../d5/dd2/classcv_1_1NAryMatIterator.html#a001ac5692124eefacd223ab4c26a430f',1,'cv::NAryMatIterator']]],
+  ['ascii',['ascii',['../d2/dbf/structcv_1_1QtFont.html#a5b53c2c5ad9b511c364628ec7ddeccf1',1,'cv::QtFont']]],
+  ['aspect',['aspect',['../d4/d0a/structcv_1_1detail_1_1CameraParams.html#af75930059b53838d8d65ae8b677840da',1,'cv::detail::CameraParams']]],
+  ['attempts',['attempts',['../d4/d72/classcv_1_1BOWKMeansTrainer.html#a38cc72f20413df1fd2de0f2e10ef9af2',1,'cv::BOWKMeansTrainer']]],
+  ['avepoolpaddedarea',['avePoolPaddedArea',['../de/d7d/classcv_1_1dnn_1_1PoolingLayer.html#a6138276571a0cf1f4c9ac1335c7f75b8',1,'cv::dnn::PoolingLayer']]],
+  ['axis',['axis',['../d0/dc7/classcv_1_1dnn_1_1InnerProductLayer.html#a802e2eecf90aec44f37c8e26501b7805',1,'cv::dnn::InnerProductLayer::axis()'],['../da/d5c/classcv_1_1dnn_1_1ConcatLayer.html#a1f11c2cdc4398cd0bd5875233ee1a256',1,'cv::dnn::ConcatLayer::axis()'],['../de/d61/classcv_1_1dnn_1_1SliceLayer.html#a2feb2f10f8ea482f35851dcd1890f9ee',1,'cv::dnn::SliceLayer::axis()'],['../dd/dde/classcv_1_1dnn_1_1ScaleLayer.html#adff905f1897b2726e9e7b93095058c76',1,'cv::dnn::ScaleLayer::axis()']]]
+];

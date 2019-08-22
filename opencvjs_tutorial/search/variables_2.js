@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['b',['b',['../d1/d10/classcv_1_1MatExpr.html#a78ec9f0784b9ff6e5942381081df13d4',1,'cv::MatExpr::b()'],['../db/dbb/structcv_1_1detail_1_1CompressedRectilinearProjector.html#a401bab51b49ffec7698dbf8dca4b2c77',1,'cv::detail::CompressedRectilinearProjector::b()'],['../d0/ded/structcv_1_1detail_1_1CompressedRectilinearPortraitProjector.html#a157e0e5ccd1ee08636eb1eadcdc95251',1,'cv::detail::CompressedRectilinearPortraitProjector::b()'],['../d2/df1/structcv_1_1detail_1_1PaniniProjector.html#af5a5bba5e4d49373d05901caef8c4817',1,'cv::detail::PaniniProjector::b()'],['../d3/dd1/structcv_1_1detail_1_1PaniniPortraitProjector.html#aa09f1183c0aeab50953a3bf75b087755',1,'cv::detail::PaniniPortraitProjector::b()']]],
+  ['backend',['backend',['../da/dcd/structcv_1_1gapi_1_1GNetParam.html#a836be1a9887d0e5d1f59ae6cc52614f4',1,'cv::gapi::GNetParam']]],
+  ['backendid',['backendId',['../d2/dbb/classcv_1_1dnn_1_1BackendNode.html#ac55a2b7772eb34186133b5410950e944',1,'cv::dnn::BackendNode::backendId()'],['../df/d7b/classcv_1_1dnn_1_1BackendWrapper.html#a93c4757ba0f720e8133d2f14ee8425f5',1,'cv::dnn::BackendWrapper::backendId()']]],
+  ['beta',['beta',['../d1/d10/classcv_1_1MatExpr.html#a367ac73c079dc071d68a20404bfd4b21',1,'cv::MatExpr::beta()'],['../d8/d8d/classcv_1_1dnn_1_1LRNLayer.html#a86d7614085ca767dcf0b64b74fe1e7f4',1,'cv::dnn::LRNLayer::beta()']]],
+  ['bias',['bias',['../d8/d8d/classcv_1_1dnn_1_1LRNLayer.html#a981531a617160b2f50d839ef7056bfa9',1,'cv::dnn::LRNLayer']]],
+  ['blobcolor',['blobColor',['../d8/da7/structcv_1_1SimpleBlobDetector_1_1Params.html#a25b5d5542f6f92ff0779d14a273ba629',1,'cv::SimpleBlobDetector::Params']]],
+  ['blobs',['blobs',['../db/db6/classcv_1_1dnn_1_1LayerParams.html#a01bf72cbee84a0edc32c16e4d97e0627',1,'cv::dnn::LayerParams::blobs()'],['../d3/d6c/classcv_1_1dnn_1_1Layer.html#a9a5578e0b3a0ec0301fb7320b54aa6ed',1,'cv::dnn::Layer::blobs()']]],
+  ['blockidx',['blockIdx',['../de/dd9/classcv_1_1FileNode.html#a79b8df175f56f5a36509ce0d310b4039',1,'cv::FileNode::blockIdx()'],['../d7/d4e/classcv_1_1FileNodeIterator.html#ab7b41883712e01cfc8c7f09bc826863c',1,'cv::FileNodeIterator::blockIdx()']]],
+  ['blocksize',['blockSize',['../d7/d4e/classcv_1_1FileNodeIterator.html#aa6d3b51fb9022e4e3bc3f6b078f04003',1,'cv::FileNodeIterator::blockSize()'],['../d5/d33/structcv_1_1HOGDescriptor.html#a847f3d42f1cf72897d5263fe3217a36d',1,'cv::HOGDescriptor::blockSize()'],['../dc/d8c/namespacecvflann.html#af6813d97f5ad15bea15d4c914d406e24',1,'cvflann::BLOCKSIZE()']]],
+  ['blockstride',['blockStride',['../d5/d33/structcv_1_1HOGDescriptor.html#ac272d532e2a672f302e9a5eab7ca1055',1,'cv::HOGDescriptor']]],
+  ['bottom_5fleft_5forigin',['bottom_left_origin',['../d6/d0f/structcv_1_1gapi_1_1wip_1_1draw_1_1Text.html#af2f3d6f7e02391eb897be789bd2506fd',1,'cv::gapi::wip::draw::Text']]],
+  ['bottomright',['bottomRight',['../df/dbf/classcv_1_1Subdiv2D.html#ab3c3970a65dfa0b4e020e101a9fdae7f',1,'cv::Subdiv2D']]],
+  ['bucket_5fsize_5fmax_5f',['bucket_size_max_',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#a65eadc691e747d193ab360c70718e5ba',1,'cvflann::lsh::LshStats']]],
+  ['bucket_5fsize_5fmean_5f',['bucket_size_mean_',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#ab13dd34955dd186016d44e981ef49e56',1,'cvflann::lsh::LshStats']]],
+  ['bucket_5fsize_5fmedian_5f',['bucket_size_median_',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#a9dd5ebc487557c60719da44cb32e5e42',1,'cvflann::lsh::LshStats']]],
+  ['bucket_5fsize_5fmin_5f',['bucket_size_min_',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#ab6da64928044451617f8300332745e25',1,'cvflann::lsh::LshStats']]],
+  ['bucket_5fsize_5fstd_5fdev',['bucket_size_std_dev',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#aafce95661b13b73242cd2b65130f83ec',1,'cvflann::lsh::LshStats']]],
+  ['bucket_5fsizes_5f',['bucket_sizes_',['../d5/d3e/structcvflann_1_1lsh_1_1LshStats.html#a1b5377341a9c08fb76658aace06c085d',1,'cvflann::lsh::LshStats']]],
+  ['buf',['buf',['../d4/d26/structcv_1_1MatStep.html#a264fe8da5b3899ff6040c72d75dda039',1,'cv::MatStep::buf()'],['../d8/dd0/classcv_1_1AutoBuffer.html#a2e60f0ffa672971df40da914cd587ba6',1,'cv::AutoBuffer::buf()']]]
+];

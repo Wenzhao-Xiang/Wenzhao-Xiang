@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['hard_5fmargin',['HARD_MARGIN',['../de/d54/classcv_1_1ml_1_1SVMSGD.html#a9b5c495b5593ffda8a7055da07d0b751acd1de0100047b02983977bc0a98ff86f',1,'cv::ml::SVMSGD']]],
+  ['harris_5fscore',['HARRIS_SCORE',['../db/d95/classcv_1_1ORB.html#a5f63b20f3802ea09319a934b353303e7a8e3438f0b6ff355dfd1cc991c760b090',1,'cv::ORB']]],
+  ['hash_5fbit',['HASH_BIT',['../dd/da9/classcv_1_1SparseMat.html#ad59dad95773783c0ca06dbf7a6a9c07ba79cfd2c6ddc2c192623e8426429d27d1',1,'cv::SparseMat']]],
+  ['hash_5fscale',['HASH_SCALE',['../dd/da9/classcv_1_1SparseMat.html#ad59dad95773783c0ca06dbf7a6a9c07ba28ca477c8ed1afabd0da753827149eeb',1,'cv::SparseMat']]],
+  ['headerisnull',['HeaderIsNull',['../d1/d0d/namespacecv_1_1Error.html#a759fa1af92f7aa7377c76ffb142abccaa1349d0a8af3047dfd9d32f62cfcadae8',1,'cv::Error']]],
+  ['hellinger',['HELLINGER',['../dc/d8c/namespacecvflann.html#aaf5ebd053bd32f6b924e6e59868a1ee1a722c4198af93c2fa6a10845c60aeedce',1,'cvflann']]],
+  ['hist_5fintersect',['HIST_INTERSECT',['../dc/d8c/namespacecvflann.html#aaf5ebd053bd32f6b924e6e59868a1ee1a30cc68122740b5dcc78308a091f1bcb7',1,'cvflann']]],
+  ['histcmp_5fbhattacharyya',['HISTCMP_BHATTACHARYYA',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386ad75f6e8385d2e29479cf61ba87b57450',1,'cv']]],
+  ['histcmp_5fchisqr',['HISTCMP_CHISQR',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386aa88d6751fb2bb79e07aa8c8717fda881',1,'cv']]],
+  ['histcmp_5fchisqr_5falt',['HISTCMP_CHISQR_ALT',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386a035d9882661edb22a95895516e441428',1,'cv']]],
+  ['histcmp_5fcorrel',['HISTCMP_CORREL',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386a38c6d2cb4ae572e00aebd5642fae2add',1,'cv']]],
+  ['histcmp_5fhellinger',['HISTCMP_HELLINGER',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386aab5ee4721e6f3b29ccacdeb318651f97',1,'cv']]],
+  ['histcmp_5fintersect',['HISTCMP_INTERSECT',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386ae6ca1479390f52007fc572f49501c85b',1,'cv']]],
+  ['histcmp_5fkl_5fdiv',['HISTCMP_KL_DIV',['../d6/dc7/group__imgproc__hist.html#gga994f53817d621e2e4228fc646342d386a0ac2233c6785267fa7232a6cc2788840',1,'cv']]],
+  ['host_5fcopy_5fobsolete',['HOST_COPY_OBSOLETE',['../db/d58/structcv_1_1UMatData.html#a4aaeab7d089a219c65db6b6b62bd4d12aa335180c2d069e30096f883702476f96',1,'cv::UMatData']]],
+  ['hough_5fgradient',['HOUGH_GRADIENT',['../dd/d1a/group__imgproc__feature.html#gga073687a5b96ac7a3ab5802eb5510fe65ab1bf00a90864db34b2f72fa76389931d',1,'cv']]],
+  ['hough_5fmulti_5fscale',['HOUGH_MULTI_SCALE',['../dd/d1a/group__imgproc__feature.html#gga073687a5b96ac7a3ab5802eb5510fe65a0f81016a60d190b6987386a0b4b478e4',1,'cv']]],
+  ['hough_5fprobabilistic',['HOUGH_PROBABILISTIC',['../dd/d1a/group__imgproc__feature.html#gga073687a5b96ac7a3ab5802eb5510fe65a2af8751122d7a6df8ef14dbc0799f76c',1,'cv']]],
+  ['hough_5fstandard',['HOUGH_STANDARD',['../dd/d1a/group__imgproc__feature.html#gga073687a5b96ac7a3ab5802eb5510fe65aeb97ba90cb7ffac9d55c71290aa258cc',1,'cv']]]
+];
