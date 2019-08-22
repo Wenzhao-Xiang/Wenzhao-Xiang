@@ -4,8 +4,8 @@
 <html>
 
 <head>
-  <script async src="./opencv_threads.js" type="text/javascript"></script>
-  <script src="./utils.js" type="text/javascript"></script>
+  <script async src="../build/opencv_threads.js" type="text/javascript"></script>
+  <script src="../libs/opencv_utils.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.js"></script>
 
 <script type='text/javascript'>
@@ -110,8 +110,6 @@ function main() {
   var frameBGR = new cv.Mat(camera.height, camera.width, cv.CV_8UC3);
   var stats = new Stats();
   stats.showPanel(0);
-  // document.body.appendChild(stats.dom);
-  console.log(stats);
   document.getElementById('container').appendChild( stats.domElement );
   //! [Open a camera stream]
 
